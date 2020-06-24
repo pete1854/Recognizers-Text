@@ -63,14 +63,12 @@ namespace Microsoft.Recognizers.Text.Number.Tests
         }
         */
 
-        /*
         [NetCoreTestDataSource]
         [TestMethod]
         public void NumberRangeModel(TestModel testSpec)
         {
             TestNumber(testSpec);
         }
-        */
 
         /*
         [NetCoreTestDataSource]
