@@ -7,7 +7,7 @@ using Microsoft.Recognizers.Definitions.Swedish;
 
 namespace Microsoft.Recognizers.Text.Number.Swedish
 {
-    public class IntegerExtractor : BaseNumberExtractor
+    public class IntegerExtractor : CachedNumberExtractor
     {
 
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
@@ -15,9 +15,14 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
         private static readonly ConcurrentDictionary<string, IntegerExtractor> Instances =
             new ConcurrentDictionary<string, IntegerExtractor>();
 
+        private readonly string keyPrefix;
+
         private IntegerExtractor(BaseNumberOptionsConfiguration config)
             : base(config.Options)
         {
+
+            keyPrefix = string.Intern(ExtractType + "_" + config.Options + "_" + config.Placeholder + "_" + config.Culture);
+
             var regexes = new Dictionary<Regex, TypeTag>
             {
                 {
@@ -77,6 +82,11 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
             }
 
             return Instances[extractorKey];
+        }
+
+        protected override object GenKey(string input)
+        {
+            return (keyPrefix, input);
         }
     }
 }

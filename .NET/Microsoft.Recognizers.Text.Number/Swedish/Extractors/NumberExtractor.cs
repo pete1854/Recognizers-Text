@@ -6,12 +6,14 @@ using Microsoft.Recognizers.Definitions.Swedish;
 
 namespace Microsoft.Recognizers.Text.Number.Swedish
 {
-    public class NumberExtractor : BaseNumberExtractor
+    public class NumberExtractor : CachedNumberExtractor
     {
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
 
         private static readonly ConcurrentDictionary<(NumberMode, NumberOptions), NumberExtractor> Instances =
             new ConcurrentDictionary<(NumberMode, NumberOptions), NumberExtractor>();
+
+        private readonly string keyPrefix;
 
         private readonly NumberMode mode;
 
@@ -20,6 +22,8 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
         {
 
             this.mode = config.Mode;
+
+            keyPrefix = string.Intern(ExtractType + "_" + config.Options + "_" + config.Mode + "_" + config.Culture);
 
             NegativeNumberTermsRegex = new Regex(NumbersDefinitions.NegativeNumberTermsRegex + "$", RegexFlags);
 
@@ -102,6 +106,11 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
             }
 
             return Instances[cacheKey];
+        }
+
+        protected override object GenKey(string input)
+        {
+            return (keyPrefix, input);
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Recognizers.Definitions.Swedish;
 
 namespace Microsoft.Recognizers.Text.Number.Swedish
 {
-    public class OrdinalExtractor : BaseNumberExtractor
+    public class OrdinalExtractor : CachedNumberExtractor
     {
 
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
@@ -15,9 +15,13 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
         private static readonly ConcurrentDictionary<string, OrdinalExtractor> Instances =
             new ConcurrentDictionary<string, OrdinalExtractor>();
 
+        private readonly string keyPrefix;
+
         private OrdinalExtractor(BaseNumberOptionsConfiguration config)
             : base(config.Options)
         {
+
+            keyPrefix = string.Intern(ExtractType + "_" + config.Options.ToString() + "_" + config.Culture);
 
             AmbiguousFractionConnectorsRegex = new Regex(NumbersDefinitions.AmbiguousFractionConnectorsRegex, RegexFlags);
 
@@ -64,6 +68,11 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
             }
 
             return Instances[cacheKey];
+        }
+
+        protected override object GenKey(string input)
+        {
+            return (keyPrefix, input);
         }
     }
 }
