@@ -3,15 +3,14 @@
     "Input": "1995-01",
     "NotSupportedByDesign": "javascript, python, java",
     "Comment": "Currently this case doesn't resolve",
-    "NotSupported": "dotnet",
     "Results": []
   },
   {
-    "Input": "Detta nummer är större än tjugo och mindre eller lika med trettiofem",
-    "NotSupported": "javascript, python",
+    "Input": "Detta nummer är större än tjugo och mindre eller lika med trettiofem.",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
-        "Text": "större än tjugo och mindre eller lika med trettiofem",
+        "Text": "större än tjugo och mindre eller lika med trettiofem.",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(20,35]"
@@ -22,56 +21,56 @@
     ]
   },
   {
-    "Input": "The number is between 20 and 30.",
-    "NotSupported": "java, javascript, python",
+    "Input": "Numret är mellan 20 och 30.",
+    "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "between 20 and 30",
+        "Text": "mellan 20 och 30",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,30)"
         },
-        "Start": 14,
-        "End": 30
+        "Start": 10,
+        "End": 25
       }
     ]
   },
   {
-    "Input": "He ranks between the tenth and the fifteenth.",
-    "NotSupported": "java, javascript, python",
+    "Input": "Han rankas mellan tionde och femtonde.",
+    "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "between the tenth and the fifteenth",
+        "Text": "mellan tionde och femtonde",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[10,15)"
         },
-        "Start": 9,
-        "End": 43
+        "Start": 11,
+        "End": 36
       }
     ]
   },
   {
-    "Input": "He scores between negative ten and fifteen.",
-    "NotSupported": "java, javascript, python",
+    "Input": "Han uppnår mellan minus tio och femton.",
+    "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "between negative ten and fifteen",
+        "Text": "mellan minus tio och femton",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[-10,15)"
         },
-        "Start": 10,
-        "End": 41
+        "Start": 11,
+        "End": 37
       }
     ]
   },
   {
-    "Input": "He ranks higher than the tenth but lower than the fifteenth.",
-    "NotSupported": "javascript, python",
+    "Input": "Han rankas högre än tionde men lägre än femtonde.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "higher than the tenth but lower than the fifteenth",
+        "Text": "högre än tionde men lägre än femtonde",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(10,15)"
@@ -82,11 +81,11 @@
     ]
   },
   {
-    "Input": "This is a number which is greater than 100 and smaller than 300",
-    "NotSupported": "javascript, python",
+    "Input": "Detta är ett nummer som är större än 100 och mindre än 300",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "greater than 100 and smaller than 300",
+        "Text": "större än 100 och mindre än 300",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(100,300)"
@@ -97,11 +96,11 @@
     ]
   },
   {
-    "Input": "This number is higher or equal than one hundred, lower or equal than three hundred",
-    "NotSupported": "javascript, python",
+    "Input": "Detta nummer är större eller lika med etthundra, lägre eller lika med trehundra",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "higher or equal than one hundred, lower or equal than three hundred",
+        "Text": "större eller lika med etthundra, lägre eller lika med trehundra",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[100,300]"
@@ -112,11 +111,11 @@
     ]
   },
   {
-    "Input": "There're at most 100 and at least 20 apples.",
-    "NotSupported": "javascript, python",
+    "Input": "Det är som mest 100 och minst 20 äpplen.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "at most 100 and at least 20",
+        "Text": "som mest 100 och minst 20 äpplen",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,100]"
@@ -127,8 +126,8 @@
     ]
   },
   {
-    "Input": "These apples are about 20~100",
-    "NotSupported": "javascript, python",
+    "Input": "Äpplena är 20~100",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "20~100",
@@ -136,17 +135,17 @@
         "Resolution": {
           "value": "[20,100)"
         },
-        "Start": 23,
-        "End": 28
+        "Start": 11,
+        "End": 16
       }
     ]
   },
   {
-    "Input": "The number range is 20 through 100",
-    "NotSupported": "javascript, python",
+    "Input": "Nummerserien löper från 20 till 100",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "20 through 100",
+        "Text": "20 till 100",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,100)"
@@ -157,11 +156,11 @@
     ]
   },
   {
-    "Input": "The number range is from one thousand to one thousand and five hundred.",
-    "NotSupported": "javascript, python",
+    "Input": "Sifferområdet löper från ettusen till ettusenfemhundra.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "from one thousand to one thousand and five hundred",
+        "Text": "från ettusen till ettusenfemhundra",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[1000,1500)"
@@ -172,101 +171,101 @@
     ]
   },
   {
-    "Input": "The number is above 1000 and below 1500",
-    "NotSupported": "javascript, python",
+    "Input": "Talet är högre än 1000 och lägre än 1500",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "above 1000 and below 1500",
+        "Text": "högre än 1000 och lägre än 1500",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(1000,1500)"
         },
-        "Start": 14,
-        "End": 38
+        "Start": 9,
+        "End": 39
       }
     ]
   },
   {
-    "Input": "The number is above one quarter and below a half.",
-    "NotSupported": "javascript, python",
+    "Input": "Talet är högre än en kvarts och lägre än en halv.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "above one quarter and below a half",
+        "Text": "högre än en kvarts och lägre än en halv",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(0.25,0.5)"
         },
-        "Start": 14,
+        "Start": 9,
         "End": 47
       }
     ]
   },
   {
-    "Input": "This number is bigger or equal than three thousand nine hundred and sixty five.",
-    "NotSupported": "javascript, python",
+    "Input": "Detta tal är större eller lika med tretusenniohundrasextiofem.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "bigger or equal than three thousand nine hundred and sixty five",
+        "Text": "större eller lika med tretusenniohundrasextiofem",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[3965,)"
         },
-        "Start": 15,
-        "End": 77
+        "Start": 13,
+        "End": 60
       }
     ]
   },
   {
-    "Input": "This number is greater than 4,565",
-    "NotSupported": "javascript, python",
+    "Input": "Detta tal är större än 4,565",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "greater than 4,565",
+        "Text": "större än 4,565",
         "TypeName": "numberrange",
         "Resolution": {
-          "value": "(4565,)"
+          "value": "(4,565,)"
         },
-        "Start": 15,
-        "End": 32
+        "Start": 13,
+        "End": 27
       }
     ]
   },
   {
-    "Input": "He is more than thirty years old.",
-    "NotSupported": "javascript, python",
+    "Input": "Han är mer än trettio år gammal.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than thirty",
-        "TypeName": "numberrange",
-        "Resolution": {
-          "value": "(30,)"
-        },
-        "Start": 6,
-        "End": 21
-      }
-    ]
-  },
-  {
-    "Input": "He is over thirty years old.",
-    "NotSupported": "javascript, python",
-    "Results": [
-      {
-        "Text": "over thirty",
+        "Text": "mer än trettio",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(30,)"
         },
-        "Start": 6,
-        "End": 16
+        "Start": 7,
+        "End": 20
       }
     ]
   },
   {
-    "Input": "His age is no less than thirty.",
-    "NotSupported": "javascript, python",
+    "Input": "Han är över trettio år gammal.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "no less than thirty",
+        "Text": "över trettio",
+        "TypeName": "numberrange",
+        "Resolution": {
+          "value": "(30,)"
+        },
+        "Start": 7,
+        "End": 18
+      }
+    ]
+  },
+  {
+    "Input": "Hans ålder understiger inte trettio.",
+    "NotSupportedByDesign": "javascript, python",
+    "Results": [
+      {
+        "Text": "understiger inte trettio",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[30,)"
@@ -277,26 +276,26 @@
     ]
   },
   {
-    "Input": "There're about five hundred and more in these products.",
-    "NotSupported": "javascript, python",
+    "Input": "Det finns femhundra eller mer i denna produkt.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "five hundred and more",
+        "Text": "femhundra eller mer",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[500,)"
         },
-        "Start": 15,
-        "End": 35
+        "Start": 10,
+        "End": 28
       }
     ]
   },
   {
-    "Input": "There're about five hundred or more in these products.",
-    "NotSupported": "javascript, python",
+    "Input": "Det finns femhundra eller fler i denna produkt.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "five hundred or more",
+        "Text": "femhundra eller fler",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[500,)"
@@ -307,68 +306,68 @@
     ]
   },
   {
-    "Input": "More than 1/2 of the people came here.",
-    "NotSupported": "javascript, python",
+    "Input": "Mer än 1/2 av människorna kom hit.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than 1/2",
+        "Text": "mer än 1/2",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(0.5,)"
         },
         "Start": 0,
-        "End": 12
+        "End": 9
       }
     ]
   },
   {
-    "Input": "Find the prime numbers which are smaller or equal than 100",
-    "NotSupported": "javascript, python",
+    "Input": "Hitta primtalen som är mindre eller lika med 100",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "smaller or equal than 100",
+        "Text": "mindre eller lika med 100",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,100]"
         },
-        "Start": 33,
-        "End": 57
+        "Start": 23,
+        "End": 47
       }
     ]
   },
   {
-    "Input": "Find the prime numbers which are less than or equal to 100",
-    "NotSupported": "javascript, python",
+    "Input": "Hitta primtalen som är lägre än eller lika med 100",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "less than or equal to 100",
+        "Text": "lägre än eller lika med 100",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,100]"
         },
-        "Start": 33,
-        "End": 57
+        "Start": 23,
+        "End": 49
       }
     ]
   },
   {
-    "Input": "There're about five hundred or less in these products.",
-    "NotSupported": "javascript, python",
+    "Input": "Det finns färre än femhundra i denna produkt.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "five hundred or less",
+        "Text": "färre än femhundra",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,500]"
         },
-        "Start": 15,
-        "End": 34
+        "Start": 10,
+        "End": 27
       }
     ]
   },
   {
-    "Input": "Find the prime numbers which are < = 100",
-    "NotSupported": "javascript, python",
+    "Input": "Hitta primtalen som är < = 100",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "< = 100",
@@ -376,29 +375,14 @@
         "Resolution": {
           "value": "(,100]"
         },
-        "Start": 33,
-        "End": 39
+        "Start": 23,
+        "End": 29
       }
     ]
   },
   {
-    "Input": "His height is below 170.",
-    "NotSupported": "javascript, python",
-    "Results": [
-      {
-        "Text": "below 170",
-        "TypeName": "numberrange",
-        "Resolution": {
-          "value": "(,170)"
-        },
-        "Start": 14,
-        "End": 22
-      }
-    ]
-  },
-  {
-    "Input": "His height is under 170.",
-    "NotSupported": "javascript, python",
+    "Input": "Hans längd är under 170.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "under 170",
@@ -412,11 +396,11 @@
     ]
   },
   {
-    "Input": "Fewer than a thousand giant pandas still live in the wild.",
-    "NotSupported": "javascript, python",
+    "Input": "Det finns färre än tusen jättepandor i det vilda.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "fewer than a thousand",
+        "Text": "färre än tusen",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,1000)"
@@ -427,23 +411,23 @@
     ]
   },
   {
-    "Input": "x is equal to one hundred and seventy.",
-    "NotSupported": "javascript, python",
+    "Input": "x är lika med etthundrasjuttio.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to one hundred and seventy",
+        "Text": "lika med etthundrasjuttio",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[170,170]"
         },
         "Start": 5,
-        "End": 36
+        "End": 29
       }
     ]
   },
   {
-    "Input": "x>10 and y<20",
-    "NotSupported": "javascript, python",
+    "Input": "x>10 och y<20",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": ">10",
@@ -466,11 +450,11 @@
     ]
   },
   {
-    "Input": "x is larger than 10 and smaller than 20. y is no more than 50 and no less than 20.",
-    "NotSupported": "javascript, python",
+    "Input": "x är större än 10 och mindre än 20. y är högst 50 och lägst 20.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "larger than 10 and smaller than 20",
+        "Text": "större än 10 och mindre än 20",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(10,20)"
@@ -479,7 +463,7 @@
         "End": 38
       },
       {
-        "Text": "no more than 50 and no less than 20",
+        "Text": "högst 50 och lägst 20",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,50]"
@@ -490,131 +474,116 @@
     ]
   },
   {
-    "Input": "One-fourth is a fraction number.",
-    "NotSupported": "javascript, python",
+    "Input": "En fjärdedel är ett bråk.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": []
   },
   {
-    "Input": "The number equals 20.",
-    "NotSupported": "javascript, python",
+    "Input": "Numret är lika med 20.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equals 20",
+        "Text": "lika med 20",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,20]"
         },
-        "Start": 11,
-        "End": 19
+        "Start": 10,
+        "End": 20
       }
     ]
   },
   {
-    "Input": "Equaling to 20, the number of students in our class is not significant.",
-    "NotSupported": "javascript, python",
-    "Results": [
-      {
-        "Text": "equaling to 20",
-        "TypeName": "numberrange",
-        "Resolution": {
-          "value": "[20,20]"
-        },
-        "Start": 0,
-        "End": 13
-      }
-    ]
-  },
-  {
-    "Input": "+1-222-2222/2222 is a phone number.",
-    "NotSupported": "javascript, python",
+    "Input": "+1-222-2222/2222 är ett telefonnummer.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": []
   },
   {
-    "Input": "+1-222-2222-2222 is a phone number.",
-    "NotSupported": "javascript, python",
+    "Input": "+1-222-2222-2222 är ett telefonnummer.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": []
   },
   {
-    "Input": "His score is 200 or greater than",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är 200 eller högre än",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "200 or greater than",
+        "Text": "200 eller högre än",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[200,)"
         },
-        "Start": 13,
+        "Start": 14,
         "End": 31
       }
     ]
   },
   {
-    "Input": "His score is 200 or greater than 190",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är 200 eller högre än 190",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "greater than 190",
+        "Text": "högre än 190",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(190,)"
         },
-        "Start": 20,
+        "Start": 24,
         "End": 35
       }
     ]
   },
   {
-    "Input": "His score is 200 or greater",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är 200 eller högre",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "200 or greater",
+        "Text": "200 eller högre",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[200,)"
         },
-        "Start": 13,
-        "End": 26
+        "Start": 14,
+        "End": 28
       }
     ]
   },
   {
-    "Input": "His score is less than or equal to 30",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lägre än eller lika med 30",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "less than or equal to 30",
+        "Text": "lägre än eller lika med 30",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,30]"
         },
-        "Start": 13,
-        "End": 36
+        "Start": 14,
+        "End": 39
       }
     ]
   },
   {
-    "Input": "His score is equal to or less than 30",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med eller lägre än 30",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to or less than 30",
+        "Text": "lika med eller lägre än 30",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,30]"
         },
-        "Start": 13,
-        "End": 36
+        "Start": 14,
+        "End": 39
       }
     ]
   },
   {
-    "Input": "His score is at least or equal to 30",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är minst eller lika med 30",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "at least or equal to 30",
+        "Text": "minst eller lika med 30",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[30,)"
@@ -625,149 +594,149 @@
     ]
   },
   {
-    "Input": "His score is equal to or more than 30",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med eller mer än 30",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to or more than 30",
+        "Text": "lika med eller mer än 30",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[30,)"
         },
-        "Start": 13,
-        "End": 36
+        "Start": 14,
+        "End": 37
       }
     ]
   },
   {
-    "Input": "His score is equal to 5000 or less",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med 5000 eller lägre",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to 5000 or less",
+        "Text": "lika med 5000 eller lägre",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,5000]"
         },
-        "Start": 13,
-        "End": 33
+        "Start": 14,
+        "End": 38
       }
     ]
   },
   {
-    "Input": "His score is equal to 5000 or less than 6000",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med 5000 eller lägre än 6000",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to 5000",
+        "Text": "lika med 5000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[5000,5000]"
         },
-        "Start": 13,
-        "End": 25
+        "Start": 14,
+        "End": 26
       },
       {
-        "Text": "less than 6000",
+        "Text": "lägre än 6000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,6000)"
         },
-        "Start": 30,
-        "End": 43
+        "Start": 34,
+        "End": 46
       }
     ]
   },
   {
-    "Input": "His score is equal to 5000 or more than",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med 5000 eller högre än",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to 5000 or more than",
+        "Text": "lika med 5000 eller högre än",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[5000,)"
         },
-        "Start": 13,
-        "End": 38
+        "Start": 14,
+        "End": 41
       }
     ]
   },
   {
-    "Input": "His score is equal to 5000 or more than 4500",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med 5000 eller högre än 4500",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to 5000",
+        "Text": "lika med 5000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[5000,5000]"
         },
-        "Start": 13,
-        "End": 25
+        "Start": 14,
+        "End": 26
       },
       {
-        "Text": "more than 4500",
+        "Text": "högre än 4500",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(4500,)"
         },
-        "Start": 30,
-        "End": 43
+        "Start": 34,
+        "End": 46
       }
     ]
   },
   {
-    "Input": "His score is less than 5000 or equal",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är mindre än 5000 eller lika med",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "less than 5000 or equal",
+        "Text": "mindre än 5000 eller lika med",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,5000]"
         },
-        "Start": 13,
-        "End": 35
+        "Start": 14,
+        "End": 42
       }
     ]
   },
   {
-    "Input": "His score is more than 5000 or equal to",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är högre än 5000 eller lika med",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than 5000 or equal to",
+        "Text": "högre än 5000 eller lika med",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[5000,)"
         },
-        "Start": 13,
-        "End": 38
+        "Start": 14,
+        "End": 41
       }
     ]
   },
   {
-    "Input": "His score is more than 5000 or equal to it",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är högre än 5000 eller lika med det",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than 5000 or equal to",
+        "Text": "högre än 5000 eller lika med",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[5000,)"
         },
-        "Start": 13,
-        "End": 38
+        "Start": 14,
+        "End": 41
       }
     ]
   },
   {
-    "Input": "His score is more than 5000 or equal to 6000",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är högre än 5000 eller lika med 6000",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than 5000",
+        "Text": "högre än 5000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(5000,)"
@@ -776,7 +745,7 @@
         "End": 26
       },
       {
-        "Text": "equal to 6000",
+        "Text": "lika med 6000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[6000,6000]"
@@ -787,32 +756,32 @@
     ]
   },
   {
-    "Input": "His score is equal to 5000 or less than 5000",
-    "NotSupported": "javascript, python",
+    "Input": "Hans poäng är lika med 5000 eller lägre än 5000",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "equal to 5000",
+        "Text": "lika med 5000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[5000,5000]"
         },
-        "Start": 13,
-        "End": 25
+        "Start": 14,
+        "End": 26
       },
       {
-        "Text": "less than 5000",
+        "Text": "lägre än 5000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,5000)"
         },
-        "Start": 30,
-        "End": 43
+        "Start": 34,
+        "End": 46
       }
     ]
   },
   {
-    "Input": "The number range is 1000-5000",
-    "NotSupported": "javascript, python, java",
+    "Input": "Talserien löper mellan 1000-5000",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "1000-5000",
@@ -820,14 +789,14 @@
         "Resolution": {
           "value": "[1000,5000)"
         },
-        "Start": 20,
-        "End": 28
+        "Start": 23,
+        "End": 31
       }
     ]
   },
   {
-    "Input": "The number range is 1000 - 5000",
-    "NotSupported": "javascript, python, java",
+    "Input": "Talserien är 1000 - 5000",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "1000 - 5000",
@@ -835,14 +804,14 @@
         "Resolution": {
           "value": "[1000,5000)"
         },
-        "Start": 20,
-        "End": 30
+        "Start": 13,
+        "End": 23
       }
     ]
   },
   {
-    "Input": "The number range is 1000–5000",
-    "NotSupported": "javascript, python, java",
+    "Input": "Talserien är 1000–5000",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "1000–5000",
@@ -850,14 +819,14 @@
         "Resolution": {
           "value": "[1000,5000)"
         },
-        "Start": 20,
-        "End": 28
+        "Start": 13,
+        "End": 21
       }
     ]
   },
   {
-    "Input": "The number range is 1000 – 5000",
-    "NotSupported": "javascript, python, java",
+    "Input": "Talserien är 1000 – 5000",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "1000 – 5000",
@@ -865,33 +834,33 @@
         "Resolution": {
           "value": "[1000,5000)"
         },
-        "Start": 20,
-        "End": 30
-      }
-    ]
-  },
-  {
-    "Input": "How about 2 in 5 or more",
-    "NotSupported": "javascript, python, java",
-    "Results": [
-      {
-        "Text": "2 in 5 or more",
-        "TypeName": "numberrange",
-        "Resolution": {
-          "value": "[0.4,)"
-        },
-        "Start": 10,
+        "Start": 13,
         "End": 23
       }
     ]
   },
   {
-    "Input": "How about more than 2 in 5",
-    "Comment": "As this can be ambiguous, by design the interpretation is left-to-right and the range is extracted first.",
-    "NotSupported": "javascript, python, java",
+    "Input": "Vad tycker du om 2 av 5 eller mer",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
-        "Text": "more than 2",
+        "Text": "2 av 5 eller mer",
+        "TypeName": "numberrange",
+        "Resolution": {
+          "value": "[0.4,)"
+        },
+        "Start": 17,
+        "End": 32
+      }
+    ]
+  },
+  {
+    "Input": "Vad tycker du om mer än 2 av 5",
+    "Comment": "As this can be ambiguous, by design the interpretation is left-to-right and the range is extracted first.",
+    "NotSupportedByDesign": "javascript, python, java",
+    "Results": [
+      {
+        "Text": "mer än 2",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(2,)"
@@ -902,38 +871,38 @@
     ]
   },
   {
-    "Input": "Can you show me records more than 30000 in 2009",
-    "NotSupported": "javascript, python, java",
+    "Input": "Kan du visa poster med mer än 30000 för 2009",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
-        "Text": "more than 30000",
+        "Text": "mer än 30000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(30000,)"
         },
-        "Start": 24,
-        "End": 38
+        "Start": 23,
+        "End": 34
       }
     ]
   },
   {
-    "Input": "Can you show me records less than 3000 in 2009",
-    "NotSupported": "javascript, python, java",
+    "Input": "Kan du visa poster med mindre än 3000 för 2009",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
-        "Text": "less than 3000",
+        "Text": "mindre än 3000",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,3000)"
         },
-        "Start": 24,
-        "End": 37
+        "Start": 23,
+        "End": 36
       }
     ]
   },
   {
-    "Input": "Is it still the case when >30",
-    "NotSupported": "javascript, python, java",
+    "Input": "Gäller det fortfarande om >30",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": ">30",
@@ -947,8 +916,8 @@
     ]
   },
   {
-    "Input": "Is it still the case when >= 30",
-    "NotSupported": "javascript, python, java",
+    "Input": "Gäller det fortfarande när >= 30",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": ">= 30",
@@ -956,14 +925,14 @@
         "Resolution": {
           "value": "[30,)"
         },
-        "Start": 26,
-        "End": 30
+        "Start": 27,
+        "End": 31
       }
     ]
   },
   {
-    "Input": "Is it still the case when <-30",
-    "NotSupported": "javascript, python, java",
+    "Input": "Gäller det fortfarande när <-30",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "<-30",
@@ -971,14 +940,14 @@
         "Resolution": {
           "value": "(,-30)"
         },
-        "Start": 26,
-        "End": 29
+        "Start": 27,
+        "End": 30
       }
     ]
   },
   {
-    "Input": "Is it still the case when <=  -30",
-    "NotSupported": "javascript, python, java",
+    "Input": "Gäller det fortfarande när <=  -30",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "<=  -30",
@@ -986,29 +955,29 @@
         "Resolution": {
           "value": "(,-30]"
         },
-        "Start": 26,
-        "End": 32
+        "Start": 27,
+        "End": 33
       }
     ]
   },
   {
     "Input": "<>30",
-    "NotSupported": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": []
   },
   {
     "Input": "=>30",
-    "NotSupported": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": []
   },
   {
     "Input": "=<30",
-    "NotSupported": "javascript, python, java",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": []
   },
   {
     "Input": "The number is equals to 20000 in 1998",
-    "NotSupported": "javascript, python, java",
+    "NotSupportedByDesign": "dotnet, javascript, python, java",
     "Results": [
       {
         "Text": "equals to 20000 in 1998",
@@ -1023,12 +992,12 @@
   },
   {
     "Input": "The number is from 200 to 300 in 2008",
-    "NotSupported": "javascript, python, java",
+    "NotSupportedByDesign": "dotnet, javascript, python, java",
     "Results": []
   },
   {
     "Input": "The number is from 200 to 3000000 in 2008",
-    "NotSupported": "javascript, python, java",
+    "NotSupportedByDesign": "dotnet, javascript, python, java",
     "Results": [
       {
         "Text": "from 200 to 3000000 in 2008",
@@ -1042,11 +1011,11 @@
     ]
   },
   {
-    "Input": "more than half people came here",
-    "NotSupported": "javascript, python",
+    "Input": "mer än hälften kom",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than half",
+        "Text": "mer än hälften",
         "Start": 0,
         "End": 13,
         "TypeName": "numberrange",
@@ -1057,11 +1026,11 @@
     ]
   },
   {
-    "Input": "exceed 3000",
-    "NotSupported": "javascript, python",
+    "Input": "överskrid 3000",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "exceed 3000",
+        "Text": "överskrid 3000",
         "Start": 0,
         "End": 10,
         "TypeName": "numberrange",
@@ -1072,11 +1041,11 @@
     ]
   },
   {
-    "Input": "surpass 3000",
-    "NotSupported": "javascript, python",
+    "Input": "överstig 3000",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "surpass 3000",
+        "Text": "överstig 3000",
         "Start": 0,
         "End": 11,
         "TypeName": "numberrange",
@@ -1087,11 +1056,11 @@
     ]
   },
   {
-    "Input": "Nissan Motor Co. is planning to cut up to 700 contract workers.",
-    "NotSupported": "javascript, python",
+    "Input": "Nissan Motor Co. planerar att säga upp uppemot 700 korttidsanställda.",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "up to 700",
+        "Text": "uppemot 700",
         "Start": 36,
         "End": 44,
         "TypeName": "numberrange",
@@ -1102,11 +1071,11 @@
     ]
   },
   {
-    "Input": "up to 700 Should not be recognized as >700",
-    "NotSupported": "javascript, python",
+    "Input": "uppemot 700 ska inte tolkas som >700",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "up to 700",
+        "Text": "uppemot 700",
         "Start": 0,
         "End": 8,
         "TypeName": "numberrange",
@@ -1126,11 +1095,11 @@
     ]
   },
   {
-    "Input": "Number of cars which have horsepower exceeding 150",
-    "NotSupported": "javascript, python",
+    "Input": "Antal bilar vars hästkrafter överstiger 150",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "exceeding 150",
+        "Text": "överstiger 150",
         "Start": 37,
         "End": 49,
         "TypeName": "numberrange",
@@ -1141,22 +1110,22 @@
     ]
   },
   {
-    "Input": "Shares were up more than 20, above 170 apiece",
-    "NotSupported": "javascript, python",
+    "Input": "Aktierna steg mer än 20, över 170 per styck",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "more than 20",
-        "Start": 15,
-        "End": 26,
+        "Text": "mer än 20",
+        "Start": 14,
+        "End": 22,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(20,)"
         }
       },
       {
-        "Text": "above 170",
-        "Start": 29,
-        "End": 37,
+        "Text": "över 170",
+        "Start": 25,
+        "End": 32,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(170,)"
@@ -1165,20 +1134,20 @@
     ]
   },
   {
-    "Input": "More than 40 and less than 10 are two ranges",
-    "NotSupported": "java, javascript, python",
+    "Input": "Mer än 40 och mindre än 10 är två talområden",
+    "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "more than 40",
+        "Text": "mer än 40",
         "Start": 0,
-        "End": 11,
+        "End": 8,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(40,)"
         }
       },
       {
-        "Text": "less than 10",
+        "Text": "mindre än",
         "Start": 17,
         "End": 28,
         "TypeName": "numberrange",
@@ -1189,40 +1158,40 @@
     ]
   },
   {
-    "Input": "More than 40 and less than 10, less than 10 and more than 40 are the same",
-    "NotSupported": "java, javascript, python",
+    "Input": "Mer än 40 och mindre än 10, mindre än 10 och mer än 40 är samma sak",
+    "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "more than 40",
+        "Text": "mer än 40",
         "Start": 0,
-        "End": 11,
+        "End": 8,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(40,)"
         }
       },
       {
-        "Text": "less than 10",
-        "Start": 17,
-        "End": 28,
+        "Text": "mindre än 10",
+        "Start": 14,
+        "End": 25,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,10)"
         }
       },
       {
-        "Text": "less than 10",
-        "Start": 31,
-        "End": 42,
+        "Text": "mindre än 10",
+        "Start": 28,
+        "End": 39,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,10)"
         }
       },
       {
-        "Text": "more than 40",
-        "Start": 48,
-        "End": 59,
+        "Text": "mer än 40",
+        "Start": 45,
+        "End": 53,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(40,)"
@@ -1231,31 +1200,31 @@
     ]
   },
   {
-    "Input": "More than 40 and less than 10, more than 10 and less than 40 are not the same",
-    "NotSupported": "java, javascript, python",
+    "Input": "Mer än 40 och mindre än 10, mer än 10 och mindre än 40 är inte samma sak",
+    "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "more than 40",
+        "Text": "mer än 40",
         "Start": 0,
-        "End": 11,
+        "End": 8,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(40,)"
         }
       },
       {
-        "Text": "less than 10",
-        "Start": 17,
-        "End": 28,
+        "Text": "mindre än 10",
+        "Start": 14,
+        "End": 25,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,10)"
         }
       },
       {
-        "Text": "more than 10 and less than 40",
-        "Start": 31,
-        "End": 59,
+        "Text": "mer än 10 och mindre än 40",
+        "Start": 28,
+        "End": 53,
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(10,40)"
@@ -1264,8 +1233,8 @@
     ]
   },
   {
-    "Input": "The number range is 5k-20k",
-    "NotSupported": "javascript, python",
+    "Input": "Talområdet är 5k-20k",
+    "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
         "Text": "5k-20k",
