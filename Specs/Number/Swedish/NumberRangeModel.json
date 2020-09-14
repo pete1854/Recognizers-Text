@@ -6,17 +6,17 @@
     "Results": []
   },
   {
-    "Input": "Detta nummer är större än tjugo och mindre eller lika med trettiofem.",
+    "Input": "Detta tal är större än tjugo och mindre eller lika med trettiofem.",
     "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
-        "Text": "större än tjugo och mindre eller lika med trettiofem.",
+        "Text": "större än tjugo och mindre eller lika med trettiofem",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(20,35]"
         },
-        "Start": 15,
-        "End": 67
+        "Start": 13,
+        "End": 64
       }
     ]
   },
@@ -81,7 +81,7 @@
     ]
   },
   {
-    "Input": "Detta är ett nummer som är större än 100 och mindre än 300",
+    "Input": "Detta är ett tal som är större än 100 och mindre än 300",
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
@@ -90,13 +90,13 @@
         "Resolution": {
           "value": "(100,300)"
         },
-        "Start": 26,
-        "End": 62
+        "Start": 24,
+        "End": 54
       }
     ]
   },
   {
-    "Input": "Detta nummer är större eller lika med etthundra, lägre eller lika med trehundra",
+    "Input": "Detta tal är större eller lika med etthundra, lägre eller lika med trehundra",
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
@@ -105,8 +105,8 @@
         "Resolution": {
           "value": "[100,300]"
         },
-        "Start": 15,
-        "End": 81
+        "Start": 13,
+        "End": 75
       }
     ]
   },
@@ -115,13 +115,13 @@
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "som mest 100 och minst 20 äpplen",
+        "Text": "som mest 100 och minst 20",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,100]"
         },
-        "Start": 9,
-        "End": 35
+        "Start": 7,
+        "End": 31
       }
     ]
   },
@@ -141,7 +141,7 @@
     ]
   },
   {
-    "Input": "Nummerserien löper från 20 till 100",
+    "Input": "Talserien är från 20 till 100",
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
@@ -271,7 +271,7 @@
           "value": "[30,)"
         },
         "Start": 11,
-        "End": 29
+        "End": 34
       }
     ]
   },
@@ -351,17 +351,17 @@
     ]
   },
   {
-    "Input": "Det finns färre än femhundra i denna produkt.",
+    "Input": "Det finns femhundra eller färre i denna produkt.",
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "färre än femhundra",
+        "Text": "femhundra eller färre",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,500]"
         },
         "Start": 10,
-        "End": 27
+        "End": 30
       }
     ]
   },
@@ -396,17 +396,17 @@
     ]
   },
   {
-    "Input": "Det finns färre än tusen jättepandor i det vilda.",
+    "Input": "Det finns färre än etttusen jättepandor i det vilda.",
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "färre än tusen",
+        "Text": "färre än etttusen",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "(,1000)"
         },
-        "Start": 0,
-        "End": 20
+        "Start": 10,
+        "End": 26
       }
     ]
   },

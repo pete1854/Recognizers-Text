@@ -151,11 +151,11 @@ TillRegex: !simpleRegex
 MoreRegex: !simpleRegex
   def: ((större|mer|högre)(\s+än)?|över|överstiga(nde)?|översteg|>)
 LessRegex: !simpleRegex
-  def: ((mindre|lägre|färre)(\s+än)?|under|<)
+  def: ((mindre|lägre|färre|understiger|understigande)(\s+än)?|under|<)
 EqualRegex: !simpleRegex
   def: (lika(\s+(med))?|=)
 MoreOrEqualPrefix: !nestedRegex
-  def: ((inte|ej\s+{LessRegex})|(åtminstone))
+  def: ((understiger inte|inte|ej\s+{LessRegex})|minst|åtminstone)
   references: [ LessRegex ]
 MoreOrEqual: !nestedRegex
   def: (({MoreRegex}\s+(eller)?\s+{EqualRegex})|({EqualRegex}\s+(eller)?\s+{MoreRegex})|{MoreOrEqualPrefix}(\s+(eller)?\s+{EqualRegex})?|({EqualRegex}\s+(eller)?\s+)?{MoreOrEqualPrefix}|>\s*=)

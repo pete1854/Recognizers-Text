@@ -78,9 +78,9 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public static readonly string NumberWithPrepositionPercentage = $@"({BaseNumbers.NumberReplaceToken})\s*(ut\s+av)\s*({BaseNumbers.NumberReplaceToken})";
       public const string TillRegex = @"(till|--|-|—|——|~|–)";
       public const string MoreRegex = @"((större|mer|högre)(\s+än)?|över|överstiga(nde)?|översteg|>)";
-      public const string LessRegex = @"((mindre|lägre|färre)(\s+än)?|under|<)";
+      public const string LessRegex = @"((mindre|lägre|färre|understiger|understigande)(\s+än)?|under|<)";
       public const string EqualRegex = @"(lika(\s+(med))?|=)";
-      public static readonly string MoreOrEqualPrefix = $@"((inte|ej\s+{LessRegex})|(åtminstone))";
+      public static readonly string MoreOrEqualPrefix = $@"((understiger inte|inte|ej\s+{LessRegex})|minst|åtminstone)";
       public static readonly string MoreOrEqual = $@"(({MoreRegex}\s+(eller)?\s+{EqualRegex})|({EqualRegex}\s+(eller)?\s+{MoreRegex})|{MoreOrEqualPrefix}(\s+(eller)?\s+{EqualRegex})?|({EqualRegex}\s+(eller)?\s+)?{MoreOrEqualPrefix}|>\s*=)";
       public const string MoreOrEqualSuffix = @"((och|eller)\s+(((större|mer|högre)((?!\s+än)|(\s+än(?!(\s*\d+)))))|((över)(?!\s+än))))";
       public static readonly string LessOrEqualPrefix = $@"((inte|ej\s+{MoreRegex})|(som\s+mest)|(upp\s+till))";
