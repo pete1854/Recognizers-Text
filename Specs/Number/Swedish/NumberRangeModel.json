@@ -36,17 +36,17 @@
     ]
   },
   {
-    "Input": "Han rankas mellan tionde och femtonde.",
+    "Input": "Han rankas mellan den tionde och den femtonde.",
     "NotSupportedByDesign": "java, javascript, python",
     "Results": [
       {
-        "Text": "mellan tionde och femtonde",
+        "Text": "mellan den tionde och den femtonde",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[10,15)"
         },
         "Start": 11,
-        "End": 36
+        "End": 44
       }
     ]
   },
@@ -141,17 +141,17 @@
     ]
   },
   {
-    "Input": "Talserien är från 20 till 100",
+    "Input": "Talserien löper från 20 till 100",
     "NotSupportedByDesign": "javascript, python",
     "Results": [
       {
-        "Text": "20 till 100",
+        "Text": "från 20 till 100",
         "TypeName": "numberrange",
         "Resolution": {
           "value": "[20,100)"
         },
-        "Start": 20,
-        "End": 33
+        "Start": 16,
+        "End": 31
       }
     ]
   },
@@ -300,8 +300,8 @@
         "Resolution": {
           "value": "[500,)"
         },
-        "Start": 15,
-        "End": 34
+        "Start": 10,
+        "End": 29
       }
     ]
   },
@@ -588,8 +588,8 @@
         "Resolution": {
           "value": "[30,)"
         },
-        "Start": 13,
-        "End": 35
+        "Start": 14,
+        "End": 36
       }
     ]
   },

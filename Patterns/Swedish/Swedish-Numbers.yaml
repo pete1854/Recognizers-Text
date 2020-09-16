@@ -22,7 +22,7 @@ NegativeNumberSignRegex: !nestedRegex
 AnIntRegex: !simpleRegex
   def: (e(n|tt))(?=\s)
 TenToNineteenIntegerRegex: !simpleRegex
-  def: (sjutton|tretton|fjorton|arton|nitton|femton|sexton|elva|tolv|tio)
+  def: (sjutton|tretton|fjorton|arton|nitton|femton|sexton|elva|tolv|tio)|(tionde)
 TensNumberIntegerRegex: !simpleRegex
   def: (sjuttio|tjugo|trettio|åttio|nittio|fyrtio|femtio|sextio)
 SeparaIntRegex: !nestedRegex
@@ -149,7 +149,7 @@ NumberWithPrepositionPercentage: !nestedRegex
 TillRegex: !simpleRegex
   def: (till|--|-|—|——|~|–)
 MoreRegex: !simpleRegex
-  def: ((större|mer|högre)(\s+än)?|över|överstiga(nde)?|översteg|>)
+  def: ((större|mer|högre|fler)(\s+än)?|över|överstiga(nde)?|översteg|>)
 LessRegex: !simpleRegex
   def: ((mindre|lägre|färre|understiger|understigande)(\s+än)?|under|<)
 EqualRegex: !simpleRegex
@@ -161,7 +161,7 @@ MoreOrEqual: !nestedRegex
   def: (({MoreRegex}\s+(eller)?\s+{EqualRegex})|({EqualRegex}\s+(eller)?\s+{MoreRegex})|{MoreOrEqualPrefix}(\s+(eller)?\s+{EqualRegex})?|({EqualRegex}\s+(eller)?\s+)?{MoreOrEqualPrefix}|>\s*=)
   references: [ MoreRegex, EqualRegex, LessRegex, MoreOrEqualPrefix ]
 MoreOrEqualSuffix: !simpleRegex
-  def: ((och|eller)\s+(((större|mer|högre)((?!\s+än)|(\s+än(?!(\s*\d+)))))|((över)(?!\s+än))))
+  def: ((och|eller)\s+(((större|mer|högre|fler)((?!\s+än)|(\s+än(?!(\s*\d+)))))|((över)(?!\s+än))))
 LessOrEqualPrefix: !nestedRegex
   def: ((inte|ej\s+{MoreRegex})|(som\s+mest)|(upp\s+till))
   references: [ MoreRegex ]

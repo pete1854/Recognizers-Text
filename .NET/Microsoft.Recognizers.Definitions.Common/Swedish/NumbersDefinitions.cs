@@ -31,7 +31,7 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public const string NegativeNumberTermsRegex = @"(?<negTerm>((minus|negativ(t)?)\s+))";
       public static readonly string NegativeNumberSignRegex = $@"^({NegativeNumberTermsRegex}).*";
       public const string AnIntRegex = @"(e(n|tt))(?=\s)";
-      public const string TenToNineteenIntegerRegex = @"(sjutton|tretton|fjorton|arton|nitton|femton|sexton|elva|tolv|tio)";
+      public const string TenToNineteenIntegerRegex = @"(sjutton|tretton|fjorton|arton|nitton|femton|sexton|elva|tolv|tio)|(tionde)";
       public const string TensNumberIntegerRegex = @"(sjuttio|tjugo|trettio|åttio|nittio|fyrtio|femtio|sextio)";
       public static readonly string SeparaIntRegex = $@"((({TenToNineteenIntegerRegex}|({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-\s*)?{ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|{ZeroToNineIntegerRegex})(\s*{RoundNumberIntegerRegex})*))|(({AnIntRegex}(\s*{RoundNumberIntegerRegex})+))";
       public static readonly string AllIntRegex = $@"(((({TenToNineteenIntegerRegex}|({TensNumberIntegerRegex}(\s+(och\s+)?|\s*-\s*)?{ZeroToNineIntegerRegex})|{TensNumberIntegerRegex}|({ZeroToNineIntegerRegex}|{AnIntRegex}))?(\s*{RoundNumberIntegerRegex})))*{SeparaIntRegex})";
@@ -77,12 +77,12 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public static readonly string NumberWithPrefixPercentage = $@"(procent\s+av)(\s*)({BaseNumbers.NumberReplaceToken})";
       public static readonly string NumberWithPrepositionPercentage = $@"({BaseNumbers.NumberReplaceToken})\s*(ut\s+av)\s*({BaseNumbers.NumberReplaceToken})";
       public const string TillRegex = @"(till|--|-|—|——|~|–)";
-      public const string MoreRegex = @"((större|mer|högre)(\s+än)?|över|överstiga(nde)?|översteg|>)";
+      public const string MoreRegex = @"((större|mer|högre|fler)(\s+än)?|över|överstiga(nde)?|översteg|>)";
       public const string LessRegex = @"((mindre|lägre|färre|understiger|understigande)(\s+än)?|under|<)";
       public const string EqualRegex = @"(lika(\s+(med))?|=)";
       public static readonly string MoreOrEqualPrefix = $@"((understiger inte|inte|ej\s+{LessRegex})|minst|åtminstone)";
       public static readonly string MoreOrEqual = $@"(({MoreRegex}\s+(eller)?\s+{EqualRegex})|({EqualRegex}\s+(eller)?\s+{MoreRegex})|{MoreOrEqualPrefix}(\s+(eller)?\s+{EqualRegex})?|({EqualRegex}\s+(eller)?\s+)?{MoreOrEqualPrefix}|>\s*=)";
-      public const string MoreOrEqualSuffix = @"((och|eller)\s+(((större|mer|högre)((?!\s+än)|(\s+än(?!(\s*\d+)))))|((över)(?!\s+än))))";
+      public const string MoreOrEqualSuffix = @"((och|eller)\s+(((större|mer|högre|fler)((?!\s+än)|(\s+än(?!(\s*\d+)))))|((över)(?!\s+än))))";
       public static readonly string LessOrEqualPrefix = $@"((inte|ej\s+{MoreRegex})|(som\s+mest)|(upp\s+till))";
       public static readonly string LessOrEqual = $@"(({LessRegex}\s+(eller)?\s+{EqualRegex})|({EqualRegex}\s+(eller)?\s+{LessRegex})|{LessOrEqualPrefix}(\s+(eller)?\s+{EqualRegex})?|({EqualRegex}\s+(eller)?\s+)?{LessOrEqualPrefix}|<\s*=)";
       public const string LessOrEqualSuffix = @"((och|eller)\s+(mindre|lägre|färre)((?!\s+än)|(\s+än(?!(\s*\d+)))))";
