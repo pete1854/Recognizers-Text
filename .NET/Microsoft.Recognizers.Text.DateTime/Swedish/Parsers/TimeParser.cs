@@ -4,7 +4,7 @@ using Microsoft.Recognizers.Text.Utilities;
 
 using DateObject = System.DateTime;
 
-namespace Microsoft.Recognizers.Text.DateTime.English
+namespace Microsoft.Recognizers.Text.DateTime.Swedish
 {
     public class TimeParser : BaseTimeParser
     {
@@ -30,7 +30,7 @@ namespace Microsoft.Recognizers.Text.DateTime.English
             var ret = new DateTimeResolutionResult();
             var lowerText = text;
 
-            var match = EnglishTimeExtractorConfiguration.IshRegex.MatchExact(lowerText, trim: true);
+            var match = SwedishTimeExtractorConfiguration.IshRegex.MatchExact(lowerText, trim: true);
 
             if (match.Success)
             {
