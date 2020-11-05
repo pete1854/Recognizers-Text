@@ -743,6 +743,12 @@ UnitMap: !dictionary
     dagar: D
     dagen: D
     dag: D
+    halvdagarna: 12H
+    halvdagen: 12H
+    halvdagar: 12H
+    halvdag: 12H
+    dygnen: 24H
+    dygn: 24H
     nätterna: D
     nätter: D
     natten: D
@@ -752,6 +758,10 @@ UnitMap: !dictionary
     timmen: H
     timme: H
     tim: H
+    halvtimmarna: 30M
+    halvtimmen: 30M
+    halvtimmar: 30M
+    halvtimme: 30M
     hrs: H
     hr: H
     h: H
