@@ -522,11 +522,11 @@ AnUnitRegex: !nestedRegex
 DuringRegex: !simpleRegex
   def: \b(för|under)\s+(?<unit>året|månaden|veckan|dagen)\b
 AllRegex: !simpleRegex
-  def: \b(?<all>(hela)(\s+|-)(?<unit>året|månaden|veckan|dagen))\b
+  def: \b(?<all>(hela?)(\s+|-)(?<unit>året|månaden|veckan|dag(en)?))\b
 HalfRegex: !simpleRegex
-  def: ((an?\s*)|\b)(?<half>half\s+(?<unit>year|month|week|day|hour))\b
+  def: \b(?<half>halv-?\s*?(?<unit>år|månad|vecka|dah|timme))\b
 ConjunctionRegex: !simpleRegex
-  def: \b((and(\s+for)?)|with)\b
+  def: \b((och(\s+under)?)|with)\b
 # Major holidays + holiday w/ weekday in name
 HolidayList1: !simpleRegex
   def: (?<holiday>mardi gras|(washington|mao)'s birthday|juneteenth|(jubilee|freedom)(\s+day)|chinese new year|(new\s+(years'|year\s*'s|years?)\s+eve)|(new\s+(years'|year\s*'s|years?)(\s+day)?)|may\s*day|yuan dan|christmas eve|(christmas|xmas)(\s+day)?|black friday|yuandan|easter(\s+(sunday|saturday|monday))?|clean monday|ash wednesday|palm sunday|maundy thursday|good friday|white\s+(sunday|monday)|trinity sunday|pentecost|corpus christi|cyber monday)
@@ -541,61 +541,61 @@ HolidayRegex: !nestedRegex
   def: \b(({StrictRelativeRegex}\s+({HolidayList1}|{HolidayList2}|{HolidayList3}))|(({HolidayList1}|{HolidayList2}|{HolidayList3})(\s+(of\s+)?({YearRegex}|{RelativeRegex}\s+year))?))\b
   references: [ HolidayList1, HolidayList2, HolidayList3, YearRegex, RelativeRegex, StrictRelativeRegex ]
 AMTimeRegex: !simpleRegex
-  def: (?<am>morning)
+  def: (?<am>morgon(en)?)
 PMTimeRegex: !simpleRegex
-  def: \b(?<pm>afternoon|evening|night)\b
+  def: \b(?<pm>eftermiddag(en)?|kväll(en)?|natt(en)?)\b
 NightTimeRegex: !simpleRegex
-  def: (night)
+  def: (natt(en)?)
 NowTimeRegex: !simpleRegex
-  def: (now)
+  def: ((just\s+)?nu)
 RecentlyTimeRegex: !simpleRegex
-  def: (recently|previously)
+  def: (nyligen|tidigare)
 AsapTimeRegex: !simpleRegex
-  def: (as soon as possible|asap)
+  def: (så tidigt som möjligt|snarast|asap)
 InclusiveModPrepositions: !simpleRegex
-  def: (?<include>((on|in|at)\s+or\s+)|(\s+or\s+(on|in|at)))
+  def: (?<include>((på|under|vid)\s+eller\s+)|(\s+eller\s+(på|under|vid)))
 AroundRegex: !simpleRegex
-  def: (?:\b(?:around|circa)\s*?\b)(\s+the)?
+  def: (?:\b(?:runt|circa|ungefär)\s*?\b)(\s+den)?
 BeforeRegex: !nestedRegex
-  def: ((\b{InclusiveModPrepositions}?(?:before|in\s+advance\s+of|prior\s+to|(no\s+later|earlier|sooner)\s+than|ending\s+(with|on)|by|(un)?till?|(?<include>as\s+late\s+as)){InclusiveModPrepositions}?\b\s*?)|(?<!\w|>)((?<include><\s*=)|<))(\s+the)?
+  def: ((\b{InclusiveModPrepositions}?(?:före|i\s+förväg|(ej\s+senare|tidigare|före)\s+|som\s+slutar\s+(med|på|den)|tills|(?<include>så\s+sent\s+som)){InclusiveModPrepositions}?\b\s*?)|(?<!\w|>)((?<include><\s*=)|<))(\s+den)?
   references: [ InclusiveModPrepositions ]
 # "starting from" is SinceRegex
 AfterRegex: !nestedRegex
-  def: ((\b{InclusiveModPrepositions}?((after|(starting|beginning)(\s+on)?(?!\sfrom)|(?<!no\s+)later than)|(year greater than))(?!\s+or equal to){InclusiveModPrepositions}?\b\s*?)|(?<!\w|<)((?<include>>\s*=)|>))(\s+the)?
+  def: ((\b{InclusiveModPrepositions}?((efter|(börjar|startar|början)(\s+(av|på|den))?(?!\sfrom)|(?<!ej\s+)senare än)|(år större än))(?!\s+lika med){InclusiveModPrepositions}?\b\s*?)|(?<!\w|<)((?<include>>\s*=)|>))(\s+den)?
   references: [ InclusiveModPrepositions ]
 SinceRegex: !simpleRegex
-  def: (?:(?:\b(?:since|after\s+or\s+equal\s+to|starting\s+(?:from|on|with)|as\s+early\s+as|(any\s+time\s+)from)\b\s*?)|(?<!\w|<)(>=))(\s+the)?
+  def: (?:(?:\b(?:sedan|efter\s+eller\s+lika\s+med|börjar\s+(?:from|från|på|med)|så\s+tidigt\s+som|(närsomhelst\s+)från)\b\s*?)|(?<!\w|<)(>=))(\s+den)?
 SinceRegexExp: !nestedRegex
-  def: ({SinceRegex}|\bfrom(\s+the)?\b)
+  def: ({SinceRegex}|\bfrån(\s+den)?\b)
   references: [ SinceRegex ]
 AgoRegex: !simpleRegex
-  def: \b(ago|before\s+(?<day>yesterday|today))\b
+  def: \b(sedan|före\s+(?<day>i\s+?går|i\s+?dag))\b
 LaterRegex: !nestedRegex
-  def: \b(?:later(?!((\s+in)?\s*{OneWordPeriodRegex})|(\s+{TimeOfDayRegex}))|from now|(from|after) (?<day>tomorrow|tmr|today))\b
+  def: \b(?:senare(?!((\s+på)?\s*{OneWordPeriodRegex})|(\s+{TimeOfDayRegex}))|från nu|(från|efter) (?<day>i\s+?morgon|i\s+?dag))\b
   references: [ OneWordPeriodRegex, TimeOfDayRegex ]
 InConnectorRegex: !simpleRegex
-  def: \b(in)\b
+  def: \b(i)\b
 SinceYearSuffixRegex: !nestedRegex
-  def: (^\s*{SinceRegex}(\s*(the\s+)?year\s*)?{YearSuffix})
+  def: (^\s*{SinceRegex}(\s*år\s*)?{YearSuffix})
   references: [ SinceRegex, YearSuffix ]
 WithinNextPrefixRegex: !nestedRegex
-  def: \b(within(\s+the)?(\s+(?<next>{NextPrefixRegex}))?)\b
+  def: \b((i|under)(\s+(?<next>{NextPrefixRegex}))?)\b
   references: [ NextPrefixRegex ]
 TodayNowRegex: !simpleRegex  # Added to remove hard coded strings in BaseDatePeriodParser
-  def: \b(today|now)\b
+  def: \b(i\s+?dag|nu)\b
 # "next" group here is used to judge uncommon unsupported cases like "within the next 5 days before today"
 MorningStartEndRegex: !nestedRegex
-  def: (^(morning|{AmDescRegex}))|((morning|{AmDescRegex})$)
+  def: (^(morgon(en)?|{AmDescRegex}))|((morgon(en)?|{AmDescRegex})$)
   references: [ AmDescRegex ]
 AfternoonStartEndRegex: !nestedRegex
-  def: (^(afternoon|{PmDescRegex}))|((afternoon|{PmDescRegex})$)
+  def: (^(eftermiddag(en)?|{PmDescRegex}))|((eftermiddag(en)?|{PmDescRegex})$)
   references: [ PmDescRegex ]
 EveningStartEndRegex: !simpleRegex
-  def: (^(evening))|((evening)$)
+  def: (^(kväll(en)?))|((kväll(en)?)$)
 NightStartEndRegex: !simpleRegex
-  def: (^(over|to)?ni(ght|te))|((over|to)?ni(ght|te)$)
+  def: (^(över|i)?\s+natt(en)?)|((över|i)?n\s+natt(en)?$)
 InexactNumberRegex: !simpleRegex
-  def: \b((a\s+)?few|some|several|(?<NumTwoTerm>(a\s+)?couple(\s+of)?))\b
+  def: \b(några|flera|(?<NumTwoTerm>ett\s+par))\b
 InexactNumberUnitRegex: !nestedRegex
   def: ({InexactNumberRegex})\s+({DurationUnitRegex})
   references: [InexactNumberRegex, DurationUnitRegex]
@@ -606,19 +606,19 @@ RelativeDurationUnitRegex: !nestedRegex
   def: (?:(?:(?<=({NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+)({DurationUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))
   references: [NextPrefixRegex, PreviousPrefixRegex, ThisPrefixRegex, DurationUnitRegex, RestrictedTimeUnitRegex]
 ReferenceDatePeriodRegex: !nestedRegex
-  def: \b{ReferencePrefixRegex}\s+(?<duration>week|month|year|decade|weekend)\b
+  def: \b{ReferencePrefixRegex}\s+(?<duration>vecka|månad|år(\s+?tionde)?|weekend|helg)\b
   references: [ReferencePrefixRegex]
 ConnectorRegex: !simpleRegex
-  def: ^(-|,|for|t|around|@)$
+  def: ^(-|,|runt|omkring|@)$
 FromToRegex: !simpleRegex
-  def: (\b(from).+(to|and|or)\b.+)
+  def: (\b(från).+(till|och|eller)\b.+)
 SingleAmbiguousMonthRegex: !simpleRegex
-  def: ^(the\s+)?(may|march)$
+  def: ^(maj|mars)$
 # Filter ambiguous single word datetime extractions in CalendarMode or when adding a modifier
 SingleAmbiguousTermsRegex: !simpleRegex
-  def: ^(the\s+)?(day|week|month|year)$
+  def: ^(dag(en)?|veckan?|månad(en)?|år(et)?)$
 UnspecificDatePeriodRegex: !simpleRegex
-  def: ^(week|month|year)$
+  def: ^(veckan?|månad(en)?|år(et)?)$
 PrepositionSuffixRegex: !simpleRegex
   def: \b(on|in|at|around|from|to)$
 FlexibleDayRegex: !simpleRegex
@@ -702,50 +702,82 @@ FailFastRegex: !nestedRegex
 UnitMap: !dictionary
   types: [ string, string ]
   entries:
-    decades: 10Y
-    decade: 10Y
-    years: Y
-    year: Y
-    months: MON
-    month: MON
-    quarters: 3MON
-    quarter: 3MON
-    semesters: 6MON
-    semestres: 6MON
-    semester: 6MON
-    semestre: 6MON
-    weeks: W
-    week: W
+    millennium: 1000Y
+    millennier: 1000Y
+    årtusenden: 1000Y
+    årtusende: 1000Y
+    sekel: 100Y
+    seklerna: 100Y
+    seklen: 100Y
+    decennium: 10Y
+    decenniet: 10Y
+    decennier: 10Y
+    lustrum: 5Y
+    åren: Y
+    år: Y
+    månaden: MON
+    månader: MON
+    månad: MON
+    kvartalen: 3MON
+    kvartalet: 3MON
+    kvartal: 3MON
+    halvåret: 6MON
+    halvår: 6MON
+    veckor: W
+    veckan: W
+    vecka: W
     weekends: WE
     weekend: WE
-    fortnights: 2W
-    fortnight: 2W
-    weekdays: D
-    weekday: D
-    days: D
-    day: D
-    nights: D
-    night: D
-    hours: H
-    hour: H
+    helgerna: WE
+    helger: WE
+    helgen: WE
+    helg: WE
+    veckolsuten: WE
+    veckoslutet: WE
+    veckoslut: WE
+    veckodagarna: D
+    veckodagar: D
+    veckodagen: D
+    veckodag: D
+    dagarna: D
+    dagar: D
+    dagen: D
+    dag: D
+    nätterna: D
+    nätter: D
+    natten: D
+    natt: D
+    timmarna: H
+    timmar: H
+    timmen: H
+    timme: H
+    tim: H
     hrs: H
     hr: H
     h: H
-    minutes: M
-    minute: M
-    mins: M
+    kvarten: 15M
+    kvart: 15M
+    minuterna: M
+    minuter: M
+    minuten: M
+    minut: M
     min: M
-    seconds: S
-    second: S
+    sekunderna: S
+    sekunder: S
+    sekunden: S
+    sekund: S
     secs: S
     sec: S
+#UnitValueMap - The value for a unit is calculated from seconds, e.g. hour = 3600 seconds, day = 86400 seconds.
 UnitValueMap: !dictionary
   types: [ string, long ]
   entries:
-    decades: 315360000
-    decade: 315360000
-    years: 31536000
-    year: 31536000
+    sekel: 315360000
+    seklerna: 315360000
+    sekel: 315360000
+    åren: 31536000
+    året: 31536000
+    år: 31536000
     months: 2592000
     month: 2592000
     fortnights: 1209600
