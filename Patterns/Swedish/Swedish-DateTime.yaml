@@ -716,6 +716,7 @@ UnitMap: !dictionary
     åren: Y
     år: Y
     månaden: MON
+    månaderna: MON
     månader: MON
     månad: MON
     kvartalen: 3MON
@@ -723,6 +724,7 @@ UnitMap: !dictionary
     kvartal: 3MON
     halvåret: 6MON
     halvår: 6MON
+    veckorna: W
     veckor: W
     veckan: W
     vecka: W
@@ -782,35 +784,74 @@ UnitMap: !dictionary
 UnitValueMap: !dictionary
   types: [ string, long ]
   entries:
-    sekel: 315360000
-    seklerna: 315360000
-    sekel: 315360000
+    millennium: 31536000000
+    millennier: 31536000000
+    årtusenden: 31536000000
+    årtusende: 31536000000  
+    sekel: 3153600000
+    seklerna: 3153600000
+    sekel: 3153600000
+    decennium: 315360000
+    decenniet: 315360000
+    decennier: 315360000
+    lustrum: 157680000
     åren: 31536000
     året: 31536000
     år: 31536000
-    months: 2592000
-    month: 2592000
-    fortnights: 1209600
-    fortnight: 1209600
+    månaden: 2592000
+    månaderna: 2592000
+    månader: 2592000
+    månad: 2592000
     weekends: 172800
     weekend: 172800
-    weeks: 604800
-    week: 604800
-    days: 86400
-    day: 86400
-    nights: 86400
-    night: 86400
-    hours: 3600
-    hour: 3600
+    helgerna: 172800
+    helger: 172800
+    helgen: 172800
+    helg: 172800
+    veckolsuten: 172800
+    veckoslutet: 172800
+    veckoslut: 172800
+    veckorna: 604800
+    veckor: 604800
+    veckan: 604800
+    vecka: 604800
+    dygnen: 86400
+    dygn: 86400
+    dagarna: 86400
+    dagar: 86400
+    dagen: 86400
+    dag: 86400
+    nätterna: 86400
+    nätter: 86400
+    natten: 86400
+    natt: 86400
+    halvdagarna: 43200
+    halvdagen: 43200
+    halvdagar: 43200
+    halvdag: 43200
+    timmarna: 3600
+    timmar: 3600
+    timmen: 3600
+    timme: 3600
+    tim: 3600
+    halvtimmarna: 1800
+    halvtimmen: 1800
+    halvtimmar: 1800
+    halvtimme: 1800
     hrs: 3600
     hr: 3600
     h: 3600
-    minutes: 60
-    minute: 60
-    mins: 60
+    kvarten: 900
+    kvart: 900
+    minuterna: 60
+    minuter: 60
+    minuten: 60
+    minut: 60
     min: 60
-    seconds: 1
-    second: 1
+    sekunderna: 1
+    sekunder: 1
+    sekunden: 1
+    sekund: 1
     secs: 1
     sec: 1
 SpecialYearPrefixesMap: !dictionary
@@ -823,11 +864,10 @@ SpecialYearPrefixesMap: !dictionary
 SeasonMap: !dictionary
   types: [ string, string ]
   entries:
-    spring: SP
-    summer: SU
-    fall: FA
-    autumn: FA
-    winter: WI
+    vår: SP
+    sommar: SU
+    höst: FA
+    vinter: WI
 SeasonValueMap: !dictionary
   types: [ string, int ]
   entries:
@@ -838,51 +878,65 @@ SeasonValueMap: !dictionary
 CardinalMap: !dictionary
   types: [ string, int]
   entries:
-    first: 1
-    1st: 1
-    second: 2
-    2nd: 2
-    third: 3
-    3rd: 3
-    fourth: 4
-    4th: 4
-    fifth: 5
-    5th: 5
+    första: 1
+    förste: 1
+    1\:a: 1
+    1\:e: 1
+    andra: 2
+    andre: 2
+    2\:a: 2
+    2\:e: 2
+    tredje: 3
+    3\:e: 3
+    fjärde: 4
+    4\:e: 4
+    femte: 5
+    5\:e: 5
 DayOfWeek: !dictionary
   types: [ string, int ]
   entries: 
-    monday: 1
-    tuesday: 2
-    wednesday: 3
-    thursday: 4
-    friday: 5
-    saturday: 6
-    sunday: 0
-    mon: 1
-    tue: 2
-    tues: 2
-    wed: 3
-    wedn: 3
-    weds: 3
-    thu: 4
-    thur: 4
-    thurs: 4
-    fri: 5
-    sat: 6
-    sun: 0
+    måndag: 1
+    månd: 1
+    mån: 1
+    må: 1
+    tisdag: 2
+    tisd: 2
+    tis: 2
+    ti: 2
+    onsdag: 3
+    onsd: 3
+    ons: 3
+    on: 3
+    torsdag: 4
+    torsd: 4
+    tors: 4
+    tor: 4
+    to: 4
+    fredag: 5
+    fred: 5
+    fre: 5
+    fr: 5
+    lördag: 6
+    lörd: 6
+    lör: 6
+    lö: 6
+    söndag: 0
+    sönd: 0
+    sön: 0
+    sö: 0
 MonthOfYear: !dictionary
   types: [ string, int ]
   entries:
-    'january': 1
-    'february': 2
-    'march': 3
+    'januari': 1
+    'februari': 2
+    'mars': 3
     'april': 4
-    'may': 5
-    'june': 6
-    'july': 7
-    'august': 8
+    'maj': 5
+    'juni': 6
+    'juli': 7
+    'augusti': 8
     'september': 9
-    'october': 10
+    'oktober': 10
     'november': 11
     'december': 12
     'jan': 1
@@ -893,8 +947,9 @@ MonthOfYear: !dictionary
     'jul': 7
     'aug': 8
     'sep': 9
+    'sept.': 9
     'sept': 9
-    'oct': 10
+    'okt': 10
     'nov': 11
     'dec': 12
     '1': 1
@@ -921,163 +976,165 @@ MonthOfYear: !dictionary
 Numbers: !dictionary
   types: [ string, int ]
   entries:
-    'zero': 0
-    'one': 1
-    'a': 1
-    'an': 1
-    'two': 2
-    'three': 3
-    'four': 4
-    'five': 5
-    'six': 6
-    'seven': 7
-    'eight': 8
-    'nine': 9
-    'ten': 10
-    'eleven': 11
-    'twelve': 12
-    'thirteen': 13
-    'fourteen': 14
-    'fifteen': 15
-    'sixteen': 16
-    'seventeen': 17
-    'eighteen': 18
-    'nineteen': 19
-    'twenty': 20
-    'twenty one': 21
-    'twenty two': 22
-    'twenty three': 23
-    'twenty four': 24
-    'twenty five': 25
-    'twenty six': 26
-    'twenty seven': 27
-    'twenty eight': 28
-    'twenty nine': 29
-    'thirty': 30
-    'thirty one': 31
-    'thirty two': 32
-    'thirty three': 33
-    'thirty four': 34
-    'thirty five': 35
-    'thirty six': 36
-    'thirty seven': 37
-    'thirty eight': 38
-    'thirty nine': 39
-    'forty': 40
-    'forty one': 41
-    'forty two': 42
-    'forty three': 43
-    'forty four': 44
-    'forty five': 45
-    'forty six': 46
-    'forty seven': 47
-    'forty eight': 48
-    'forty nine': 49
-    'fifty': 50
-    'fifty one': 51
-    'fifty two': 52
-    'fifty three': 53
-    'fifty four': 54
-    'fifty five': 55
-    'fifty six': 56
-    'fifty seven': 57
-    'fifty eight': 58
-    'fifty nine': 59
-    'sixty': 60
-    'sixty one': 61
-    'sixty two': 62
-    'sixty three': 63
-    'sixty four': 64
-    'sixty five': 65
-    'sixty six': 66
-    'sixty seven': 67
-    'sixty eight': 68
-    'sixty nine': 69
-    'seventy': 70
-    'seventy one': 71
-    'seventy two': 72
-    'seventy three': 73
-    'seventy four': 74
-    'seventy five': 75
-    'seventy six': 76
-    'seventy seven': 77
-    'seventy eight': 78
-    'seventy nine': 79
-    'eighty': 80
-    'eighty one': 81
-    'eighty two': 82
-    'eighty three': 83
-    'eighty four': 84
-    'eighty five': 85
-    'eighty six': 86
-    'eighty seven': 87
-    'eighty eight': 88
-    'eighty nine': 89
-    'ninety': 90
-    'ninety one': 91
-    'ninety two': 92
-    'ninety three': 93
-    'ninety four': 94
-    'ninety five': 95
-    'ninety six': 96
-    'ninety seven': 97
-    'ninety eight': 98
-    'ninety nine': 99
-    'one hundred': 100
+    'noll': 0
+    'ett': 1
+    'en': 1
+    'två': 2
+    'tre': 3
+    'fyra': 4
+    'fem': 5
+    'sex': 6
+    'sju': 7
+    'åtta': 8
+    'nio': 9
+    'tio': 10
+    'elva': 11
+    'tolv': 12
+    'tretton': 13
+    'fjorton': 14
+    'femton': 15
+    'sexton': 16
+    'sjutton': 17
+    'arton': 18
+    'nitton': 19
+    'tjugo': 20
+    'tjugoett': 21
+    'tjugoen': 21
+    'tjugotvå': 22
+    'tjugotre': 23
+    'tjugofyra': 24
+    'tjugofem': 25
+    'tjugosex': 26
+    'tjugosju': 27
+    'tjugoåtta': 28
+    'tjugonio': 29
+    'trettio': 30
+    'trettioett': 31
+    'trettioen': 31
+    'trettiotvå': 32
+    'trettiotre': 33
+    'trettiofyra': 34
+    'trettiofem': 35
+    'trettiosex': 36
+    'trettiosju': 37
+    'trettioåtta': 38
+    'trettionio': 39
+    'fyrtio': 40
+    'fyrtioett': 41
+    'fyrtioen': 41
+    'fyrtiotvå': 42
+    'fyrtiotre': 43
+    'fyrtiofyra': 44
+    'fyrtiofem': 45
+    'fyrtiosex': 46
+    'fyrtiosju': 47
+    'fyrtioåtta': 48
+    'fyrtionio': 49
+    'femtio': 50
+    'femtioett': 51
+    'femtioen': 51
+    'femtiotvå': 52
+    'femtiotre': 53
+    'femtiofyra': 54
+    'femtiofem': 55
+    'femtiosex': 56
+    'femtiosju': 57
+    'femtioåtta': 58
+    'femtionio': 59
+    'sextio': 60
+    'sextioett': 61
+    'sextioen': 61
+    'sextiotvå': 62
+    'sextiotre': 63
+    'sextiofyra': 64
+    'sextiofem': 65
+    'sextiosex': 66
+    'sextiosju': 67
+    'sextioåtta': 68
+    'sextionio': 69
+    'sjuttio': 70
+    'sjuttioett': 71
+    'sjuttioen': 71
+    'sjuttiotvå': 72
+    'sjuttiotre': 73
+    'sjuttiofyra': 74
+    'sjuttiofem': 75
+    'sjuttiosex': 76
+    'sjuttiosju': 77
+    'sjuttioåtta': 78
+    'sjuttionio': 79
+    'åttio': 80
+    'åttioett': 81
+    'åttioen': 81
+    'åttiotvå': 82
+    'åttiotre': 83
+    'åttiofyra': 84
+    'åttiofem': 85
+    'åttiosex': 86
+    'åttiosju': 87
+    'åttioåtta': 88
+    'åttionio': 89
+    'nittio': 90
+    'nittioett': 91
+    'nittioen': 91
+    'nittiotvå': 92
+    'nittiotre': 93
+    'nittiofyra': 94
+    'nittiofem': 95
+    'nittiosex': 96
+    'nittiosju': 97
+    'nittioåtta': 98
+    'nittionio': 99
+    'etthundra': 100
+    'hundra': 100
 DayOfMonth: !dictionary
   types: [ string, int ]
   entries:
-    '1st': 1
-    '2nd': 2
-    '3rd': 3
-    '4th': 4
-    '5th': 5
-    '6th': 6
-    '7th': 7
-    '8th': 8
-    '9th': 9
-    '10th': 10
-    '11th': 11
-    '11st': 11
-    '12th': 12
-    '12nd': 12
-    '13th': 13
-    '13rd': 13
-    '14th': 14
-    '15th': 15
-    '16th': 16
-    '17th': 17
-    '18th': 18
-    '19th': 19
-    '20th': 20
-    '21st': 21
-    '21th': 21
-    '22nd': 22
-    '22th': 22
-    '23rd': 23
-    '23th': 23
-    '24th': 24
-    '25th': 25
-    '26th': 26
-    '27th': 27
-    '28th': 28
-    '29th': 29
-    '30th': 30
-    '31st': 31
-    '01st': 1
-    '02nd': 2
-    '03rd': 3
-    '04th': 4
-    '05th': 5
-    '06th': 6
-    '07th': 7
-    '08th': 8
-    '09th': 9
+    '1': 1
+    '2': 2
+    '3': 3
+    '4': 4
+    '5': 5
+    '6': 6
+    '7': 7
+    '8': 8
+    '9': 9
+    '10': 10
+    '11': 11
+    '12': 12
+    '13': 13
+    '14': 14
+    '15': 15
+    '16': 16
+    '17': 17
+    '18': 18
+    '19': 19
+    '20': 20
+    '21': 21
+    '22': 22
+    '23': 23
+    '23': 23
+    '24': 24
+    '25': 25
+    '26': 26
+    '27': 27
+    '28': 28
+    '29': 29
+    '30': 30
+    '31': 31
 DoubleNumbers: !dictionary
   types: [ string, double ]
   entries: 
-    half: 0.5
-    quarter: 0.25
+    halvannan: 1.5
+    halvannat: 1.5
+    halva: 0.5
+    halv: 0.5
+    kvartal: 0.25
+    kvarts: 0.25
+    kvart: 0.25
+    'tre kvarts': 0.75
+    'tre kvart': 0.75
+    trekvarts: 0.75
 HolidayNames: !dictionary
   types: [ string, 'string[]' ]
   entries: 
@@ -1146,22 +1203,46 @@ HolidayNames: !dictionary
 WrittenDecades: !dictionary
   types: [ string, int ]
   entries:
-    'hundreds': 0
-    'tens': 10
-    'twenties': 20
-    'thirties': 30
-    'forties': 40
-    'fifties': 50
-    'sixties': 60
-    'seventies': 70
-    'eighties': 80
-    'nineties': 90
+    'hundratalet': 0
+    'tiotalet': 10
+    'tio-talet': 10
+    'tjugotalet': 20
+    'tjugo-talet': 20
+    'trettiotalet': 30
+    'trettio-talet': 30
+    'fyrtio-talet': 40
+    'fyrtiotalet': 40
+    'femtiotalet': 50
+    'femtio-talet': 50
+    'sextiotalet': 60
+    'sextio-talet': 60
+    'sjuttiotalet': 70
+    'sjuttio-talet': 70
+    'åttiotalet': 80
+    'åttio-talet': 80
+    'nittiotalet': 90
+    'nittio-talet': 90
+    '00-talet': 0
+    '10-talet': 10
+    '20-talet': 20
+    '30-talet': 30
+    '40-talet': 40
+    '50-talet': 50
+    '60-talet': 60
+    '70-talet': 70
+    '80-talet': 80
+    '90-talet': 90
 SpecialDecadeCases: !dictionary
   types: [ string, int ]
   entries:
-    'noughties': 2000
-    'aughts': 2000
-    'two thousands': 2000
+    'år 0': 0
+    'år noll': 0
+    '2000-talet': 2000
+    'tjugohundratalet': 2000
+    'tvåtusen talet': 2000
+    'tvåtusentalet': 2000
+    'tvåtusen-talet': 2000
+    'tjugohundra': 2000
 DefaultLanguageFallback: 'MDY'
 SuperfluousWordList: !list
   types: [ string ]
@@ -1188,19 +1269,21 @@ AmbiguityFiltersDict: !dictionary
 MorningTermList: !list
   types: [ string ]
   entries: 
-    - morning
+    - morgon
+    - ottan #traditionally used to denote "early in the morning"
 AfternoonTermList: !list
   types: [ string ]
   entries: 
-    - afternoon
+    - eftermiddag
+    - efter lunch
 EveningTermList: !list
   types: [ string ]
   entries: 
-    - evening
+    - kväll
 MealtimeBreakfastTermList: !list
   types: [ string ]
   entries: 
-    - breakfast
+    - frukost
 MealtimeBrunchTermList: !list
   types: [ string ]
   entries: 
@@ -1208,76 +1291,95 @@ MealtimeBrunchTermList: !list
 MealtimeLunchTermList: !list
   types: [ string ]
   entries: 
+    - lunchtid
     - lunch
-    - lunchtime
 MealtimeDinnerTermList: !list
   types: [ string ]
   entries: 
-    - dinner
-    - dinnertime
-    - supper
+    - middagstid
+    - middag
+    - kvällsmat
 DaytimeTermList: !list
   types: [ string ]
   entries: 
-    - daytime
+    - dagtid
+    - på dagen
 NightTermList: !list
   types: [ string ]
   entries: 
-    - night
+    - natt
+    - på natten
 SameDayTerms: !list
   types: [ string ]
   entries: 
-    - today
+    - idag
+    - i dag
+    - innevarande dag
 PlusOneDayTerms: !list
   types: [ string ]
   entries: 
-    - tomorrow
-    - tmr
-    - day after
+    - imorgon
+    - i morgon
+    - dagen efter
+    - efterföljande dag
 MinusOneDayTerms: !list
   types: [ string ]
   entries: 
-    - yesterday
-    - day before
+    - igår
+    - i går
+    - dagen före
+    - föregående dag
 PlusTwoDayTerms: !list
   types: [ string ]
   entries: 
-    - day after tomorrow
-    - day after tmr
+    - övermorgon
+    - i övermorgon
+    - dagen efter imorgon
+    - dagen efter i morgon
 MinusTwoDayTerms: !list
   types: [ string ]
   entries: 
-    - day before yesterday
+    - förrgår
+    - i förrgår
 # For DatePeriodParserConfiguration
 FutureTerms: !list
   types: [ string ]
   entries:
-    - this
-    - next
+    - kommande
+    - nästa
 LastCardinalTerms: !list
   types: [ string ]
   entries:
-    - last
+    - förra
+    - senaste
 MonthTerms: !list
   types: [ string ]
   entries:
-    - month
+    - månad
+    - månaden
 MonthToDateTerms: !list
   types: [ string ]
   entries:
-    - month to date
+    - månaden fram till idag
+    - månaden fram till i dag
+    - månaden fram tills idag
+    - månaden fram tills i dag
 WeekendTerms: !list
   types: [ string ]
   entries:
     - weekend
+    - helgen
+    - helg
 WeekTerms: !list
   types: [ string ]
   entries:
-    - week
+    - veckan
+    - veckor
+    - vecka
 YearTerms: !list
   types: [ string ]
   entries:
-    - year
+    - år
 GenericYearTerms: !list
   types: [ string ]
   entries: 
@@ -1298,7 +1400,7 @@ WeekTypeRegex: !simpleRegex
 WeekendTypeRegex: !simpleRegex
   def: (weekends?)$
 MonthTypeRegex: !simpleRegex
-  def: (month(s|ly)?)$
+  def: (månad(er)?|månatligen|varje månad)$
 QuarterTypeRegex: !simpleRegex
   def: (quarter(s|ly)?)$
 YearTypeRegex: !simpleRegex
