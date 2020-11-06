@@ -633,13 +633,13 @@ WeekDayAndDayRegex: !nestedRegex
   def: \b{WeekDayRegex}\s+(?!(the)){DayRegex}(?!([-:]|(\s+({AmDescRegex}|{PmDescRegex}|{OclockRegex}))))\b
   references: [WeekDayRegex, DayRegex, AmDescRegex, PmDescRegex, OclockRegex]
 RestOfDateRegex: !simpleRegex
-  def: \b(rest|remaining)\s+(of\s+)?((the|my|this|current)\s+)?(?<duration>week|month|year|decade)\b
+  def: \b(resten|återstoden)\s+(av\s+)?((de(tt|nn)a|nuvarande)\s+)?(?<duration>veckan|månaden|året|decenniet)\b
 RestOfDateTimeRegex: !simpleRegex
-  def: \b(rest|remaining)\s+(of\s+)?((the|my|this|current)\s+)?(?<unit>day)\b
+  def: \b(resten|återstoden)\s+(av\s+)?((denna|nuvarande)\s+)?(?<unit>day)\b
 AmbiguousRangeModifierPrefix: !simpleRegex
-  def: (from)
+  def: (från)
 NumberEndingPattern: !nestedRegex
-  def: ^(?:\s+(?<meeting>meeting|appointment|conference|((skype|teams|zoom|facetime)\s+)?call)\s+to\s+(?<newTime>{PeriodHourNumRegex}|{HourRegex})([\.]?$|(\.,|,|!|\?)))
+  def: ^(?:\s+(?<meeting>möte|konferens|((skype|teams|zoom|facetime)\s+)?(samtal|möte))\s+till\s+(?<newTime>{PeriodHourNumRegex}|{HourRegex})([\.]?$|(\.,|,|!|\?)))
   references: [PeriodHourNumRegex, HourRegex]
 OneOnOneRegex: !simpleRegex
   def: \b(1\s*:\s*1(?!\d))|(one (on )?one|one\s*-\s*one|one\s*:\s*one)\b
@@ -697,7 +697,7 @@ ComplexDatePeriodRegex: !nestedRegex
   references: [ StrictTillRegex, StrictRangeConnectorRegex, StartMiddleEndRegex ]
 # Do not localize FailFastRegex to other cultures at this momment. Experimental feature. To be improved.
 FailFastRegex: !nestedRegex
-  def: '{BaseDateTime.DeltaMinuteRegex}|\b(?:{BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex})|{BaseDateTime.BaseAmPmDescRegex}|\b(?:zero|{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}|{WrittenMonthRegex}|{SeasonDescRegex}|{DecadeRegex}|centur(y|ies)|weekends?|quarters?|hal(f|ves)|yesterday|to(morrow|day|night)|tmr|noonish|\d(-|——)?ish|((the\s+\w*)|\d)(th|rd|nd|st)|(mid\s*(-\s*)?)?(night|morning|afternoon|day)s?|evenings?||noon|lunch(time)?|dinner(time)?|(day|night)time|overnight|dawn|dusk|sunset|hours?|hrs?|h|minutes?|mins?|seconds?|secs?|eo[dmy]|mardi[ -]?gras|birthday|eve|christmas|xmas|thanksgiving|halloween|yuandan|easter|yuan dan|april fools|cinco de mayo|all (hallow|souls)|guy fawkes|(st )?patrick|hundreds?|noughties|aughts|thousands?)\b|{WeekDayRegex}|{SetWeekDayRegex}|{NowRegex}|{PeriodicRegex}|\b({DateUnitRegex}|{ImplicitDayRegex})'
+  def: '{BaseDateTime.DeltaMinuteRegex}|\b(?:{BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex})|{BaseDateTime.BaseAmPmDescRegex}|\b(?:noll|{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}|{WrittenMonthRegex}|{SeasonDescRegex}|{DecadeRegex}|centur(y|ies)|weekends?|quarters?|hal(f|ves)|yesterday|to(morrow|day|night)|tmr|noonish|\d(-|——)?ish|((the\s+\w*)|\d)(th|rd|nd|st)|(mid\s*(-\s*)?)?(night|morning|afternoon|day)s?|evenings?||noon|lunch(time)?|dinner(time)?|(day|night)time|overnight|dawn|dusk|sunset|hours?|hrs?|h|minutes?|mins?|seconds?|secs?|eo[dmy]|mardi[ -]?gras|birthday|eve|christmas|xmas|thanksgiving|halloween|yuandan|easter|yuan dan|april fools|cinco de mayo|all (hallow|souls)|guy fawkes|(st )?patrick|hundreds?|noughties|aughts|thousands?)\b|{WeekDayRegex}|{SetWeekDayRegex}|{NowRegex}|{PeriodicRegex}|\b({DateUnitRegex}|{ImplicitDayRegex})'
   references: [ BaseDateTime.DeltaMinuteRegex, BaseDateTime.BaseAmDescRegex, BaseDateTime.BasePmDescRegex, BaseDateTime.BaseAmPmDescRegex, ImplicitDayRegex, DateUnitRegex, WeekDayRegex, SetWeekDayRegex, NowRegex, PeriodicRegex, DecadeRegex, SeasonDescRegex, WrittenMonthRegex, WrittenTensRegex, WrittenElevenToNineteenRegex, WrittenOneToNineRegex ]
 UnitMap: !dictionary
   types: [ string, string ]
@@ -778,8 +778,8 @@ UnitMap: !dictionary
     sekunder: S
     sekunden: S
     sekund: S
-    secs: S
-    sec: S
+    sek: S
+    s: S
 #UnitValueMap - The value for a unit is calculated from seconds, e.g. hour = 3600 seconds, day = 86400 seconds.
 UnitValueMap: !dictionary
   types: [ string, long ]
@@ -857,10 +857,14 @@ UnitValueMap: !dictionary
 SpecialYearPrefixesMap: !dictionary
   types: [ string, string ]
   entries:
-    fiscal: FY
-    school: SY
-    fy: FY
-    sy: SY
+    räkenskapsåret: FY
+    räkenskapsår: FY
+    bokföringsåret: FY
+    bokföringsår: FY
+    skolåret: SY
+    skolår: SY
+    läsåret: SY
+    läsår: SY
 SeasonMap: !dictionary
   types: [ string, string ]
   entries:
@@ -1247,12 +1251,12 @@ DefaultLanguageFallback: 'MDY'
 SuperfluousWordList: !list
   types: [ string ]
   entries:
-    - preferably
-    - how about
-    - maybe
-    - perhaps
-    - say
-    - like
+    - helst
+    - hur skulle det vara
+    - kanske
+    - låt oss säga
+    - typ
+    - skulle föredra
 # For DurationDateRestrictions, only translate these terms if this particular circumstance applies in the target language. If not, keep it empty. 
 DurationDateRestrictions: [ today, now ]
 # Cases collected from mined data
@@ -1388,6 +1392,8 @@ YearToDateTerms: !list
   types: [ string ]
   entries:
     - year to date
+    - hittills under året
+    - året hittills
 # For SetParserConfiguration
 DoubleMultiplierRegex: !simpleRegex
   def: ^(bi)(-|\s)?
