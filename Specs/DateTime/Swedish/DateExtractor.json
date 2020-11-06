@@ -1,6 +1,6 @@
-[
+﻿[
   {
-    "Input": "i'll go back on 15",
+    "Input": "jag är tillbaka den 15",
     "Results": [
       {
         "Text": "15",
@@ -11,13 +11,13 @@
     ]
   },
   {
-    "Input": "i'll go back april 22",
+    "Input": "jag är tillbaka den 22 april",
     "Results": [
       {
-        "Text": "april 22",
+        "Text": "den 22 april",
         "Type": "date",
-        "Start": 13,
-        "Length": 8
+        "Start": 16,
+        "Length": 12
       }
     ]
   },
@@ -55,13 +55,13 @@
     ]
   },
   {
-    "Input": "i'll go back january 12, 2016",
+    "Input": "jag är tillbaka den 26 januari, 2016",
     "Results": [
       {
-        "Text": "january 12, 2016",
+        "Text": "den 26 januari, 2016",
         "Type": "date",
-        "Start": 13,
-        "Length": 16
+        "Start": 16,
+        "Length": 20
       }
     ]
   },
