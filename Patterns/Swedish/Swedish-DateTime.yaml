@@ -3,7 +3,7 @@
 LangMarker: Swe
 CheckBothBeforeAfter: !bool false
 TillRegex: !nestedRegex
-  def: (?<till>\b(till|tom|t\.o\.\m\.)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
+  def: (?<till>\b(till|tom|t\.o\.m\.)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
   references: [ BaseDateTime.RangeConnectorSymbolRegex ]
 RangeConnectorRegex : !nestedRegex
   def: (?<and>\b(till|tom|t\.o\.\m\.)\b(\s+den\b)?|{BaseDateTime.RangeConnectorSymbolRegex})
