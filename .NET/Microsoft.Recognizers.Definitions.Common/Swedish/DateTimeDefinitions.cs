@@ -28,7 +28,7 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public const string LastNegPrefix = @"(?<!(w(ill|ould|on\s*'\s*t)|m(ay|ight|ust)|sh(all|ould(n\s*'\s*t)?)|c(an(\s*'\s*t|not)?|ould(n\s*'\s*t)?))(\s+not)?\s+)";
       public static readonly string RelativeRegex = $@"\b(?<order>efterföljande|nästa|kommande|denna|{LastNegPrefix}senaste|föregående|tidigare|nuvarande|the)\b";
       public static readonly string StrictRelativeRegex = $@"\b(?<order>efterföljande|nästa|kommande|denna|{LastNegPrefix}senaste|föregående|tidigare|nuvarande)\b";
-      public const string UpcomingPrefixRegex = @"((den\s+)?((kommande))";
+      public const string UpcomingPrefixRegex = @"(den\s+)?(kommande)";
       public static readonly string NextPrefixRegex = $@"\b(efterföljande|nästa|{UpcomingPrefixRegex})\b";
       public const string AfterNextSuffixRegex = @"\b(efter\s+nästa)\b";
       public const string PastPrefixRegex = @"(förra)\b";
@@ -62,7 +62,7 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public const string WeekDayRegex = @"\b(?<weekday>(?:sön?|mån?|tis?|tor?|fre?|ons?|lör?)(dag)?)s?\b";
       public const string SingleWeekDayRegex = @"\b(?<weekday>söndag|lördag|(?:mån|tis|tors|fre|ons)(dag)?|((?<=på\s+)(lör|sön)))\b";
       public static readonly string RelativeMonthRegex = $@"(?<relmonth>((dag\s+)?i\s+)?{RelativeRegex}\s+månad)\b";
-      public const string WrittenMonthRegex = @"((?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sept(ember)?|sept?)((\s+månad)?)";
+      public const string WrittenMonthRegex = @"(?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sept(ember)?|sept?)((\s+månad)?)";
       public static readonly string MonthSuffixRegex = $@"(?<msuf>(?:(i|under)\s+)?({RelativeMonthRegex}|{WrittenMonthRegex}))";
       public const string DateUnitRegex = @"(?<unit>sekel|år|månad(er)?|veck(a|or)?|(?<business>(var))?dag(ar)?|helg(er)?|(?<=\s+\d{1,4})[ymwd])\b";
       public const string DateTokenPrefix = @"den ";
@@ -90,5 +90,902 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public const string HalfYearTermRegex = @"(?<cardinal>första|1:a|andra|2:a)\s+halvåret";
       public static readonly string HalfYearFrontRegex = $@"(?<year>((1[5-9]|20)\d{{2}})|2100)(\s*-\s*|\s+(the\s+)?)?h(?<number>[1-2])";
       public static readonly string HalfYearBackRegex = $@"(h(?<number>[1-2])|({HalfYearTermRegex}))(\s*,\s*)?\s+({YearRegex})";
+      public static readonly string HalfYearRelativeRegex = $@"({HalfYearTermRegex}(\s*,\s*)?\s+({RelativeRegex}\s+år))";
+      public static readonly string AllHalfYearRegex = $@"({HalfYearFrontRegex})|({HalfYearBackRegex})|({HalfYearRelativeRegex})";
+      public const string EarlyPrefixRegex = @"\b(?<EarlyPrefix>tidigt|början av|början på|starten av|(?<RelEarly>tidigare(\s+under)?))\b";
+      public const string MidPrefixRegex = @"\b(?<MidPrefix>mid-?|mitten av|mitten på)\b";
+      public const string LaterPrefixRegex = @"\b(?<LatePrefix>sent|slutet av|(?<RelLate>senare(\s+under)?))\b";
+      public static readonly string PrefixPeriodRegex = $@"({EarlyPrefixRegex}|{MidPrefixRegex}|{LaterPrefixRegex})";
+      public const string PrefixDayRegex = @"\b((?<EarlyPrefix>tidigt)|(?<MidPrefix>mitt(en)?)|(?<LatePrefix>senare?))(\s+under|på|av)?(\s+dagen)?$";
+      public const string SeasonDescRegex = @"(?<seas>vår(en)?|sommar(en)?|höst(en)?|vintern?)";
+      public static readonly string SeasonRegex = $@"\b(?<season>({PrefixPeriodRegex}\s+)?({RelativeRegex}\s+)?{SeasonDescRegex}((\s*,\s*)?\s+({YearRegex}|{RelativeRegex}\s+år))?)\b";
+      public const string WhichWeekRegex = @"\b(week)(\s*)(?<number>5[0-3]|[1-4]\d|0?[1-9])\b";
+      public const string WeekOfRegex = @"((veckan som)(\s+((börjar|startar)(\s+med)?)))(\s+den)?";
+      public const string MonthOfRegex = @"(i)(\s*)(månad)";
+      public const string MonthRegex = @"(?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sep(tember)?|sept?)";
+      public static readonly string DateYearRegex = $@"(?<year>{BaseDateTime.FourDigitYearRegex}|{TwoDigitYearRegex})";
+      public static readonly string YearSuffix = $@"(\s*({DateYearRegex}|{FullTextYearRegex}))";
+      public static readonly string OnRegex = $@"(?<=\bpå\s+)({DayRegex}s?)\b";
+      public const string RelaxedOnRegex = @"(?<=\b(on|at|in)\s+)((?<day>(3[0-1]|[0-2]?\d)(?:a|:e))s?)\b";
+      public const string PrefixWeekDayRegex = @"(\s*((,?\s*på)|[-—–]))";
+      public static readonly string ThisRegex = $@"\b(denna(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|({WeekDayRegex}(\s+denna\s*vecka))\b";
+      public static readonly string LastDateRegex = $@"\b({PreviousPrefixRegex}(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|({WeekDayRegex}(\s+(den\s+)?senaste\s*veckan))\b";
+      public static readonly string NextDateRegex = $@"\b({NextPrefixRegex}(\s*vecka{PrefixWeekDayRegex}?)?\s*{WeekDayRegex})|((på\s+)?{WeekDayRegex}(\s+(följande|nästa)\s*vecka))\b";
+      public static readonly string SpecialDayRegex = $@"\b((the\s+)?i förrgår|i övermorgon|dagen\s+(före|efter)(?!=\s+dag)|((den\s+)?({RelativeRegex}|min)\s+dag)|igår|imorgon|idag)\b";
+      public static readonly string SpecialDayWithNumRegex = $@"\b((?<number>{WrittenNumRegex})\s+dagar?\s+(räknat\s+)?från\s+(?<day>igår|imorgon|idag))\b";
+      public static readonly string RelativeDayRegex = $@"\b(((den\s+)?{RelativeRegex}\s+dagen))\b";
+      public const string SetWeekDayRegex = @"\b(?<prefix>på\s+)?(?<weekday>morgonen|eftermiddagen|kvällen|natten|(sön|mån|tis|ons|tors|fre|lör)dag)s\b";
+      public static readonly string WeekDayOfMonthRegex = $@"(?<wom>(the\s+)?(?<cardinal>första|1:a|andra|2:a|tredje|3:e|fjärde|4:e|femte|5:e|senaste)\s+(veckan\s+{MonthSuffixRegex}[\.]?\s+(på\s+)?{WeekDayRegex}|{WeekDayRegex}\s+{MonthSuffixRegex}))";
+      public static readonly string RelativeWeekDayRegex = $@"\b({WrittenNumRegex}\s+{WeekDayRegex}\s+(från\s+nu|senare))\b";
+      public static readonly string SpecialDate = $@"(?=\b(på|under)\s+den\s+){DayRegex}\b";
+      public const string DatePreposition = @"\b(på|om)";
+      public static readonly string DateExtractorYearTermRegex = $@"(\s+|\s*,\s*|\s+i\s+){DateYearRegex}";
+      public static readonly string DateExtractor1 = $@"\b({WeekDayRegex}\s*[,-]?\s*)?(({MonthRegex}[\.]?\s*[/\\.,-]?\s*{DayRegex})|(\({MonthRegex}\s*[-.]\s*{DayRegex}\)))(\s*\(\s*{WeekDayRegex}\s*\))?({DateExtractorYearTermRegex}\b)?";
+      public static readonly string DateExtractor3 = $@"\b({WeekDayRegex}(\s+|\s*,\s*))?{DayRegex}[\.]?(\s+|\s*,\s*|\s+i\s+|\s*-\s*){MonthRegex}[\.]?((\s+in)?{DateExtractorYearTermRegex})?\b";
+      public static readonly string DateExtractor4 = $@"\b{MonthNumRegex}\s*[/\\\-]\s*{DayRegex}[\.]?\s*[/\\\-]\s*{DateYearRegex}";
+      public static readonly string DateExtractor5 = $@"\b{DayRegex}\s*[/\\\-\.]\s*({MonthNumRegex}|{MonthRegex})\s*[/\\\-\.]\s*{DateYearRegex}(?!\s*[/\\\-\.]\s*\d+)";
+      public static readonly string DateExtractor6 = $@"(?<={DatePreposition}\s+)({StrictRelativeRegex}\s+)?({WeekDayRegex}\s+)?{MonthNumRegex}[\-\.]{DayRegex}(?![%])\b";
+      public static readonly string DateExtractor7L = $@"\b({WeekDayRegex}\s+)?{MonthNumRegex}\s*/\s*{DayRegex}{DateExtractorYearTermRegex}(?![%])\b";
+      public static readonly string DateExtractor7S = $@"\b({WeekDayRegex}\s+)?{MonthNumRegex}\s*/\s*{DayRegex}(?![%])\b";
+      public static readonly string DateExtractor8 = $@"(?<={DatePreposition}\s+)({StrictRelativeRegex}\s+)?({WeekDayRegex}\s+)?{DayRegex}[\\\-]{MonthNumRegex}(?![%])\b";
+      public static readonly string DateExtractor9L = $@"\b({WeekDayRegex}\s+)?{DayRegex}\s*/\s*{MonthNumRegex}{DateExtractorYearTermRegex}(?![%])\b";
+      public static readonly string DateExtractor9S = $@"\b({WeekDayRegex}\s+)?{DayRegex}\s*/\s*{MonthNumRegex}(?![%])\b";
+      public static readonly string DateExtractorA = $@"\b({WeekDayRegex}\s+)?{BaseDateTime.FourDigitYearRegex}\s*[/\\\-\.]\s*({MonthNumRegex}|{MonthRegex})\s*[/\\\-\.]\s*{DayRegex}";
+      public static readonly string OfMonth = $@"^\s*(dagen\s+)?i\s*{MonthRegex}";
+      public static readonly string MonthEnd = $@"{MonthRegex}\s*(the)?\s*$";
+      public static readonly string WeekDayEnd = $@"(this\s+)?{WeekDayRegex}\s*,?\s*$";
+      public const string WeekDayStart = @"^[\.]";
+      public const string RangeUnitRegex = @"\b(?<unit>år|månad(er)?|veck(a|or)?)\b";
+      public const string HourNumRegex = @"\b(?<hournum>noll|ett|två|tre|fyra|fem|sex|sju|åtta|nio|tio|elva|tolv)\b";
+      public const string MinuteNumRegex = @"(?<minnum>tio|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)?|tjugo|trettio|fyrtio|femtio|en|två|tre|fem|åtta)";
+      public const string DeltaMinuteNumRegex = @"(?<deltaminnum>tio|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)?|tjugo|trettio|fyrtio|femtio|en|två|tre|fem|åtta)";
+      public const string PmRegex = @"(?<pm>(((?:vid|runt|på|för)\s+(the\s+)?)?(eftermiddag|kväll|(mid)?natt|lunch(tid)?))|((vid|runt|på|för)\s+(the\s+)?natt(en)?))";
+      public const string PmRegexFull = @"(?<pm>((?:vid|runt|på|för)\s+(the\s+)?)?(eftermiddag|kväll(en)?|(mid)?nattt|lunchtid))";
+      public const string AmRegex = @"(?<am>((?:vid|runt|på|för)\s+(morgonen))";
+      public const string LunchRegex = @"\blunch(tid)?\b";
+      public const string NightRegex = @"\b(mid)?natt\b";
+      public const string CommonDatePrefixRegex = @"^[\.]";
+      public static readonly string LessThanOneHour = $@"(?<lth>(en\s+)?kvart|tre kvart?|halv(timme)?|{BaseDateTime.DeltaMinuteRegex}(\s+(minut(er)?|min))|{DeltaMinuteNumRegex}(\s+(minut(er)?|min)))";
+      public static readonly string WrittenTimeRegex = $@"(?<writtentime>{HourNumRegex}\s+({MinuteNumRegex}|(?<tens>tjugo|trettio|fyrtio|femtio)\s+{MinuteNumRegex}))";
+      public static readonly string TimePrefix = $@"(?<prefix>{LessThanOneHour}\s+(över|i))";
+      public static readonly string TimeSuffix = $@"(?<suffix>{AmRegex}|{PmRegex}|{OclockRegex})";
+      public static readonly string TimeSuffixFull = $@"(?<suffix>{AmRegex}|{PmRegexFull}|{OclockRegex})";
+      public static readonly string BasicTime = $@"\b(?<basictime>{WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}:{BaseDateTime.MinuteRegex}(:{BaseDateTime.SecondRegex})?|{BaseDateTime.HourRegex}(?![%\d]))";
+      public const string MidnightRegex = @"(?<midnight>mid\s*(-\s*)?natt)";
+      public const string MidmorningRegex = @"(?<midmorning>mid\s*(-\s*)?morning)";
+      public const string MidafternoonRegex = @"(?<midafternoon>mid\s*(-\s*)?afternoon)";
+      public const string MiddayRegex = @"(?<midday>middag|((12\s)?på dagen))";
+      public static readonly string MidTimeRegex = $@"(?<mid>({MidnightRegex}|{MidmorningRegex}|{MidafternoonRegex}|{MiddayRegex}))";
+      public static readonly string AtRegex = $@"\b(?:(?:(?<=\bvid\s+)(?:{WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}(?!\.\d)(\s*((?<iam>a)|(?<ipm>p)))?|{MidTimeRegex}))|{MidTimeRegex})\b";
+      public static readonly string IshRegex = $@"\b({BaseDateTime.HourRegex}(-|——)?ungefär|middag(stid)?)\b";
+      public const string TimeUnitRegex = @"([^A-Za-z]{1,}|\b)(?<unit>tim|h|min(uter)?|sek(und)?(er)?)\b";
+      public const string RestrictedTimeUnitRegex = @"(?<unit>timme|minut)\b";
+      public const string FivesRegex = @"(?<tens>(?:femton|(?:tjugo|trettio|fyrtio|femtio)(\s*fem)?|tio|fem))\b";
+      public static readonly string HourRegex = $@"\b{BaseDateTime.HourRegex}";
+      public const string PeriodHourNumRegex = @"\b(?<hour>twenty(\s+(ett|två|tre|fyra))?|elva|tolv|tretton|femton|arton|(fjor|sex|sjut|nit)(ton)?|noll|ett|två|tre|fem|åtta|tio)\b";
+      public static readonly string ConnectNumRegex = $@"\b{BaseDateTime.HourRegex}(?<min>[0-5][0-9])\s*{DescRegex}";
+      public static readonly string TimeRegexWithDotConnector = $@"({BaseDateTime.HourRegex}(\s*\.\s*){BaseDateTime.MinuteRegex})";
+      public static readonly string TimeRegex1 = $@"\b({TimePrefix}\s+)?({WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex})(\s*|[.]){DescRegex}";
+      public static readonly string TimeRegex2 = $@"(\b{TimePrefix}\s+)?(t)?{BaseDateTime.HourRegex}(\s*)?:(\s*)?{BaseDateTime.MinuteRegex}((\s*)?:(\s*)?{BaseDateTime.SecondRegex})?(?<iam>a)?((\s*{DescRegex})|\b)";
+      public static readonly string TimeRegex3 = $@"(\b{TimePrefix}\s+)?{BaseDateTime.HourRegex}\.{BaseDateTime.MinuteRegex}(\s*{DescRegex})";
+      public static readonly string TimeRegex4 = $@"\b{TimePrefix}\s+{BasicTime}(\s*{DescRegex})?\s+{TimeSuffix}\b";
+      public static readonly string TimeRegex5 = $@"\b{TimePrefix}\s+{BasicTime}((\s*{DescRegex})|\b)";
+      public static readonly string TimeRegex6 = $@"{BasicTime}(\s*{DescRegex})?\s+{TimeSuffix}\b";
+      public static readonly string TimeRegex7 = $@"\b{TimeSuffixFull}\s+(vid\s+)?{BasicTime}((\s*{DescRegex})|\b)";
+      public static readonly string TimeRegex8 = $@".^";
+      public static readonly string TimeRegex9 = $@"\b{PeriodHourNumRegex}(\s+|-){FivesRegex}((\s*{DescRegex})|\b)";
+      public static readonly string TimeRegex10 = $@"\b({TimePrefix}\s+)?{BaseDateTime.HourRegex}(\s*h\s*){BaseDateTime.MinuteRegex}(\s*{DescRegex})?";
+      public static readonly string TimeRegex11 = $@"\b((?:({TimeTokenPrefix})?{TimeRegexWithDotConnector}(\s*{DescRegex}))|(?:(?:{TimeTokenPrefix}{TimeRegexWithDotConnector})(?!\s*procent|%)))";
+      public static readonly string FirstTimeRegexInTimeRange = $@"\b{TimeRegexWithDotConnector}(\s*{DescRegex})?";
+      public static readonly string PureNumFromTo = $@"({RangePrefixRegex}\s+)?({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?\s*{TillRegex}\s*({HourRegex}|{PeriodHourNumRegex})(?<rightDesc>\s*({PmRegex}|{AmRegex}|{DescRegex}))?";
+      public static readonly string PureNumBetweenAnd = $@"(between\s+)(({BaseDateTime.TwoDigitHourRegex}{BaseDateTime.TwoDigitMinuteRegex})|{HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?\s*{RangeConnectorRegex}\s*(({BaseDateTime.TwoDigitHourRegex}{BaseDateTime.TwoDigitMinuteRegex})|{HourRegex}|{PeriodHourNumRegex})(?<rightDesc>\s*({PmRegex}|{AmRegex}|{DescRegex}))?";
+      public static readonly string SpecificTimeFromTo = $@"({RangePrefixRegex}\s+)?(?<time1>(({TimeRegex2}|{FirstTimeRegexInTimeRange})|({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?))\s*{TillRegex}\s*(?<time2>(({TimeRegex2}|{TimeRegexWithDotConnector}(?<rightDesc>\s*{DescRegex}))|({HourRegex}|{PeriodHourNumRegex})(\s*(?<rightDesc>{DescRegex}))?))";
+      public static readonly string SpecificTimeBetweenAnd = $@"(between\s+)(?<time1>(({TimeRegex2}|{FirstTimeRegexInTimeRange})|({HourRegex}|{PeriodHourNumRegex})(\s*(?<leftDesc>{DescRegex}))?))\s*{RangeConnectorRegex}\s*(?<time2>(({TimeRegex2}|{TimeRegexWithDotConnector}(?<rightDesc>\s*{DescRegex}))|({HourRegex}|{PeriodHourNumRegex})(\s*(?<rightDesc>{DescRegex}))?))";
+      public const string SuffixAfterRegex = @"\b(((vid)\s)?(eller|och)\s+(över|efter|senare|större)(?!\s+än))\b";
+      public const string PrepositionRegex = @"(?<prep>^(vid|på|av)(\s+den)?$)";
+      public const string LaterEarlyRegex = @"((?<early>årliga?(\s+|-))|(?<late>sen((are)?\s+|-)))";
+      public const string MealTimeRegex = @"\b(vid\s+)?(?<mealTime>frukost|brunch|lunch(\s*tid)?|middag(\s*tid)?|kvällsmat)\b";
+      public static readonly string UnspecificTimePeriodRegex = $@"({MealTimeRegex})";
+      public static readonly string TimeOfDayRegex = $@"\b(?<timeOfDay>((((in\s+den\s+)?{LaterEarlyRegex}?(på\s+)?(morgonen|eftermiddagen|natten|kvällen)))|{MealTimeRegex}|(((under\s+)?)(dagtid))))\b";
+      public static readonly string SpecificTimeOfDayRegex = $@"\b(({StrictRelativeRegex}\s+{TimeOfDayRegex})\b|\bi(\s+)?kväll)\b";
+      public static readonly string TimeFollowedUnit = $@"^\s*{TimeUnitRegex}";
+      public static readonly string TimeNumberCombinedWithUnit = $@"\b(?<num>\d+(\.\d*)?){TimeUnitRegex}";
+      public static readonly string[] BusinessHourSplitStrings = { @"business", @"hour" };
+      public const string NowRegex = @"\b(?<now>(just\s+)?nu|så snart som möjligt|snarast|asap|nyligen|tidigare)\b";
+      public static readonly string NowParseRegex = $@"\b({NowRegex}|^(date)$)\b";
+      public const string SuffixRegex = @"^\s*(på\s+)?(morgonen|eftermiddagen|kvällen|natten)\b";
+      public const string NonTimeContextTokens = @"(byggnad(en)?)";
+      public const string DateTimeTimeOfDayRegex = @"\b(?<timeOfDay>morning|(?<pm>eftermiddag(en)?|natt(en)?|kväll(en)?))\b";
+      public static readonly string DateTimeSpecificTimeOfDayRegex = $@"\b(({RelativeRegex}\s+{DateTimeTimeOfDayRegex})\b|\bi(\s+)?kväll)\b";
+      public static readonly string TimeOfTodayAfterRegex = $@"^\s*(,\s*)?(in\s+)?{DateTimeSpecificTimeOfDayRegex}";
+      public static readonly string TimeOfTodayBeforeRegex = $@"{DateTimeSpecificTimeOfDayRegex}(\s*,)?(\s+(vid|runt|om|på))?\s*$";
+      public static readonly string SimpleTimeOfTodayAfterRegex = $@"(?<!{NonTimeContextTokens}\s*)\b({HourNumRegex}|{BaseDateTime.HourRegex})\s*(,\s*)?(om\s+)?{DateTimeSpecificTimeOfDayRegex}\b";
+      public static readonly string SimpleTimeOfTodayBeforeRegex = $@"\b{DateTimeSpecificTimeOfDayRegex}(\s*,)?(\s+(vid|runt))?\s*({HourNumRegex}|{BaseDateTime.HourRegex})\b";
+      public const string SpecificEndOfRegex = @"(i\s+)?slutet av\s*$";
+      public const string UnspecificEndOfRegex = @"\b(i\s+)?(slutet av dagen)\b";
+      public const string UnspecificEndOfRangeRegex = @"\b(eoy)\b";
+      public static readonly string PeriodTimeOfDayRegex = $@"\b((i)?{LaterEarlyRegex}?(detta\s+)?{DateTimeTimeOfDayRegex})\b";
+      public static readonly string PeriodSpecificTimeOfDayRegex = $@"\b({LaterEarlyRegex}?detta\s+{DateTimeTimeOfDayRegex}|({StrictRelativeRegex}\s+{PeriodTimeOfDayRegex})\b|\bi(\s+)?kväll)\b";
+      public static readonly string PeriodTimeOfDayWithDateRegex = $@"\b(({PeriodTimeOfDayRegex}(\s+(på|av))?))\b";
+      public const string LessThanRegex = @"\b(mindre\s+än)\b";
+      public const string MoreThanRegex = @"\b(mer\s+än)\b";
+      public static readonly string DurationUnitRegex = $@"(?<unit>{DateUnitRegex}|timmar|tim|h|min(ut)?(er)?|sek(und)?(er)?|nätter?)\b";
+      public const string SuffixAndRegex = @"(?<suffix>\s*(och)\s+(en?\s+)?(?<suffix_num>halv|kvart))";
+      public const string PeriodicRegex = @"\b(?<periodic>((?<multiplier>semi|bi|tri)(\s*|-))?(daglig|månatliga|vecka|kvartal|årlig(a|en)?))\b";
+      public static readonly string EachUnitRegex = $@"(?<each>(varje|var|vilken)(?<other>\s+anna(n|t))?\s+({DurationUnitRegex}|(?<specialUnit>kvartal|veckoslut|helg(er)?)|{WeekDayRegex}))";
+      public const string EachPrefixRegex = @"\b(?<each>(varje|var)\s*$)";
+      public const string SetEachRegex = @"\b(?<each>(varje|var)(?<other>\s+annan(n|t))?\s*)\b";
+      public static readonly string SetLastRegex = $@"(?<last>följande|nästa|kommande|denna|{LastNegPrefix}senaste|förra|tidigare|nuvarande)";
+      public const string EachDayRegex = @"^\s*(varje|var)\s*dag\b";
+      public static readonly string DurationFollowedUnit = $@"(^\s*{DurationUnitRegex}\s+{SuffixAndRegex})|(^\s*{SuffixAndRegex}?(\s+|-)?{DurationUnitRegex})";
+      public static readonly string NumberCombinedWithDurationUnit = $@"\b(?<num>\d+(\.\d*)?)(-)?{DurationUnitRegex}";
+      public static readonly string AnUnitRegex = $@"(\b((?<half>(halv)\s+)?an?|another)|(?<half>(1/2|½|halv)))\s+{DurationUnitRegex}";
+      public const string DuringRegex = @"\b(för|under)\s+(?<unit>året|månaden|veckan|dagen)\b";
+      public const string AllRegex = @"\b(?<all>(hela?)(\s+|-)(?<unit>året|månaden|veckan|dag(en)?))\b";
+      public const string HalfRegex = @"\b(?<half>halv-?\s*?(?<unit>år|månad|vecka|dah|timme))\b";
+      public const string ConjunctionRegex = @"\b((och(\s+under)?)|with)\b";
+      public const string HolidayList1 = @"(?<holiday>mardi gras|(washington|mao)'s birthday|juneteenth|(jubilee|freedom)(\s+day)|chinese new year|(new\s+(years'|year\s*'s|years?)\s+eve)|(new\s+(years'|year\s*'s|years?)(\s+day)?)|may\s*day|yuan dan|christmas eve|(christmas|xmas)(\s+day)?|black friday|yuandan|easter(\s+(sunday|saturday|monday))?|clean monday|ash wednesday|palm sunday|maundy thursday|good friday|white\s+(sunday|monday)|trinity sunday|pentecost|corpus christi|cyber monday)";
+      public const string HolidayList2 = @"(?<holiday>(thanks\s*giving|all saint's|white lover|s(?:ain)?t?(\.)?\s+(?:patrick|george)(?:')?(?:s)?|us independence|all hallow|all souls|guy fawkes|cinco de mayo|halloween|qingming|dragon boat|april fools|tomb\s*sweeping)(\s+day)?)";
+      public const string HolidayList3 = @"(?<holiday>(?:independence|presidents(?:')?|mlk|martin luther king( jr)?|canberra|ascension|columbus|tree( planting)?|arbor|labou?r|((international|int'?l)\s+)?workers'?|mother'?s?|father'?s?|female|women('s)?|single|teacher'?s|youth|children|girls|lovers?|earth|inauguration|groundhog|valentine'?s|baptiste|bastille|veterans(?:')?|memorial|mid[ \-]autumn|moon|spring|lantern)\s+day)";
+      public static readonly string HolidayRegex = $@"\b(({StrictRelativeRegex}\s+({HolidayList1}|{HolidayList2}|{HolidayList3}))|(({HolidayList1}|{HolidayList2}|{HolidayList3})(\s+(of\s+)?({YearRegex}|{RelativeRegex}\s+year))?))\b";
+      public const string AMTimeRegex = @"(?<am>morgon(en)?)";
+      public const string PMTimeRegex = @"\b(?<pm>eftermiddag(en)?|kväll(en)?|natt(en)?)\b";
+      public const string NightTimeRegex = @"(natt(en)?)";
+      public const string NowTimeRegex = @"((just\s+)?nu)";
+      public const string RecentlyTimeRegex = @"(nyligen|tidigare)";
+      public const string AsapTimeRegex = @"(så tidigt som möjligt|snarast|asap)";
+      public const string InclusiveModPrepositions = @"(?<include>((på|under|vid)\s+eller\s+)|(\s+eller\s+(på|under|vid)))";
+      public const string AroundRegex = @"(?:\b(?:runt|circa|ungefär)\s*?\b)(\s+den)?";
+      public static readonly string BeforeRegex = $@"((\b{InclusiveModPrepositions}?(?:före|i\s+förväg|(ej\s+senare|tidigare|före)\s+|som\s+slutar\s+(med|på|den)|tills|(?<include>så\s+sent\s+som)){InclusiveModPrepositions}?\b\s*?)|(?<!\w|>)((?<include><\s*=)|<))(\s+den)?";
+      public static readonly string AfterRegex = $@"((\b{InclusiveModPrepositions}?((efter|(börjar|startar|början)(\s+(av|på|den))?(?!\sfrom)|(?<!ej\s+)senare än)|(år större än))(?!\s+lika med){InclusiveModPrepositions}?\b\s*?)|(?<!\w|<)((?<include>>\s*=)|>))(\s+den)?";
+      public const string SinceRegex = @"(?:(?:\b(?:sedan|efter\s+eller\s+lika\s+med|börjar\s+(?:from|från|på|med)|så\s+tidigt\s+som|(närsomhelst\s+)från)\b\s*?)|(?<!\w|<)(>=))(\s+den)?";
+      public static readonly string SinceRegexExp = $@"({SinceRegex}|\bfrån(\s+den)?\b)";
+      public const string AgoRegex = @"\b(sedan|före\s+(?<day>i\s+?går|i\s+?dag))\b";
+      public static readonly string LaterRegex = $@"\b(?:senare(?!((\s+på)?\s*{OneWordPeriodRegex})|(\s+{TimeOfDayRegex}))|från nu|(från|efter) (?<day>i\s+?morgon|i\s+?dag))\b";
+      public const string InConnectorRegex = @"\b(i)\b";
+      public static readonly string SinceYearSuffixRegex = $@"(^\s*{SinceRegex}(\s*år\s*)?{YearSuffix})";
+      public static readonly string WithinNextPrefixRegex = $@"\b((i|under)(\s+(?<next>{NextPrefixRegex}))?)\b";
+      public const string TodayNowRegex = @"\b(i\s+?dag|nu)\b";
+      public static readonly string MorningStartEndRegex = $@"(^(morgon(en)?|{AmDescRegex}))|((morgon(en)?|{AmDescRegex})$)";
+      public static readonly string AfternoonStartEndRegex = $@"(^(eftermiddag(en)?|{PmDescRegex}))|((eftermiddag(en)?|{PmDescRegex})$)";
+      public const string EveningStartEndRegex = @"(^(kväll(en)?))|((kväll(en)?)$)";
+      public const string NightStartEndRegex = @"(^(över|i)?\s+natt(en)?)|((över|i)?n\s+natt(en)?$)";
+      public const string InexactNumberRegex = @"\b(några|flera|(?<NumTwoTerm>ett\s+par))\b";
+      public static readonly string InexactNumberUnitRegex = $@"({InexactNumberRegex})\s+({DurationUnitRegex})";
+      public static readonly string RelativeTimeUnitRegex = $@"(?:(?:(?:{NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+({TimeUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))";
+      public static readonly string RelativeDurationUnitRegex = $@"(?:(?:(?<=({NextPrefixRegex}|{PreviousPrefixRegex}|{ThisPrefixRegex})\s+)({DurationUnitRegex}))|((the|my))\s+({RestrictedTimeUnitRegex}))";
+      public static readonly string ReferenceDatePeriodRegex = $@"\b{ReferencePrefixRegex}\s+(?<duration>vecka|månad|år(\s+?tionde)?|weekend|helg)\b";
+      public const string ConnectorRegex = @"^(-|,|runt|omkring|@)$";
+      public const string FromToRegex = @"(\b(från).+(till|och|eller)\b.+)";
+      public const string SingleAmbiguousMonthRegex = @"^(maj|mars)$";
+      public const string SingleAmbiguousTermsRegex = @"^(dag(en)?|veckan?|månad(en)?|år(et)?)$";
+      public const string UnspecificDatePeriodRegex = @"^(veckan?|månad(en)?|år(et)?)$";
+      public const string PrepositionSuffixRegex = @"\b(on|in|at|around|from|to)$";
+      public const string FlexibleDayRegex = @"(?<DayOfMonth>([A-Za-z]+\s)?[A-Za-z\d]+)";
+      public static readonly string ForTheRegex = $@"\b((((?<=for\s+)the\s+{FlexibleDayRegex})|((?<=on\s+)(the\s+)?{FlexibleDayRegex}(?<=(st|nd|rd|th))))(?<end>\s*(,|\.(?!\d)|!|\?|$)))";
+      public static readonly string WeekDayAndDayOfMonthRegex = $@"\b{WeekDayRegex}\s+(the\s+{FlexibleDayRegex})\b";
+      public static readonly string WeekDayAndDayRegex = $@"\b{WeekDayRegex}\s+(?!(the)){DayRegex}(?!([-:]|(\s+({AmDescRegex}|{PmDescRegex}|{OclockRegex}))))\b";
+      public const string RestOfDateRegex = @"\b(resten|återstoden)\s+(av\s+)?((de(tt|nn)a|nuvarande)\s+)?(?<duration>veckan|månaden|året|decenniet)\b";
+      public const string RestOfDateTimeRegex = @"\b(resten|återstoden)\s+(av\s+)?((denna|nuvarande)\s+)?(?<unit>day)\b";
+      public const string AmbiguousRangeModifierPrefix = @"(från)";
+      public static readonly string NumberEndingPattern = $@"^(?:\s+(?<meeting>möte|konferens|((skype|teams|zoom|facetime)\s+)?(samtal|möte))\s+till\s+(?<newTime>{PeriodHourNumRegex}|{HourRegex})([\.]?$|(\.,|,|!|\?)))";
+      public const string OneOnOneRegex = @"\b(1\s*:\s*1(?!\d))|(one (on )?one|one\s*-\s*one|one\s*:\s*one)\b";
+      public static readonly string LaterEarlyPeriodRegex = $@"\b(({PrefixPeriodRegex})\s*\b\s*(?<suffix>{OneWordPeriodRegex}|(?<FourDigitYear>{BaseDateTime.FourDigitYearRegex}))|({UnspecificEndOfRangeRegex}))\b";
+      public static readonly string WeekWithWeekDayRangeRegex = $@"\b((?<week>({NextPrefixRegex}|{PreviousPrefixRegex}|denna)\s+veckan?)((\s+mellan\s+{WeekDayRegex}\s+och\s+{WeekDayRegex})|(\s+från\s+{WeekDayRegex}\s+till\s+{WeekDayRegex})))\b";
+      public const string GeneralEndingRegex = @"^\s*((\.,)|\.|,|!|\?)?\s*$";
+      public const string MiddlePauseRegex = @"\s*(,)\s*";
+      public const string DurationConnectorRegex = @"^\s*(?<connector>\s+|och|,)\s*$";
+      public const string PrefixArticleRegex = @"\bden\s+";
+      public const string OrRegex = @"\s*((\b|,\s*)(eller|och)\b|,)\s*";
+      public static readonly string SpecialYearTermsRegex = $@"\b((({SpecialYearPrefixes}\s+)?år)|(cy|(?<special>räkenskapsår(et)?|bokföringsår(et)?|läsår(et)?|skolår(et)?)))";
+      public static readonly string YearPlusNumberRegex = $@"\b({SpecialYearTermsRegex}\s*((?<year>(\d{{2,4}}))|{FullTextYearRegex}))\b";
+      public static readonly string NumberAsTimeRegex = $@"\b({WrittenTimeRegex}|{PeriodHourNumRegex}|{BaseDateTime.HourRegex})\b";
+      public static readonly string TimeBeforeAfterRegex = $@"\b(((?<=\b(före|(inte|ej) senare än|till|efter)\s+)({WrittenTimeRegex}|{HourNumRegex}|{BaseDateTime.HourRegex}|{MidTimeRegex}))|{MidTimeRegex})\b";
+      public const string DateNumberConnectorRegex = @"^\s*(?<connector>\s+vid)\s*$";
+      public const string DecadeRegex = @"(?<decade>(?:tio|tjugo|trettio|fyrtio|femtio|sextio|sjuttio|åttio|nittio)|tvåtusen|tjugohundra)";
+      public static readonly string DecadeWithCenturyRegex = $@"(det\s+)?(((?<century>\d|1\d|2\d)?(')?(?<decade>\d0)(')?(\s)?s\b)|(({CenturyRegex}(\s+|-)(och\s+)?)?{DecadeRegex})|({CenturyRegex}(\s+|-)(och\s+)?(?<decade>tio|hundra)))";
+      public static readonly string RelativeDecadeRegex = $@"\b((det\s+)?{RelativeRegex}\s+((?<number>[\w,]+)\s+)?decenni(um|et|er))\b";
+      public static readonly string YearPeriodRegex = $@"((((från|under|in)\s+)?{YearRegex}\s*({TillRegex})\s*{YearRegex})|(((mellan)\s+){YearRegex}\s*({RangeConnectorRegex})\s*{YearRegex}))";
+      public static readonly string StrictTillRegex = $@"(?<till>\b(t.o.m.|tom|tillochmed|till och med|till)\b|{BaseDateTime.RangeConnectorSymbolRegex}(?!\s*(h[1-2]|q[1-4])(?!(\s+av|\s*,\s*))))";
+      public static readonly string StrictRangeConnectorRegex = $@"(?<and>\b(och|till|tom)\b|{BaseDateTime.RangeConnectorSymbolRegex}(?!\s*(h[1-2]|q[1-4])(?!(\s+av|\s*,\s*))))";
+      public const string StartMiddleEndRegex = @"\b((?<StartOf>((starten|början)\s+(av|på)\s+)?)(?<MiddleOf>(mitten\s+av\s+)?)(?<EndOf>(slutet\s+av\s+)?))";
+      public static readonly string ComplexDatePeriodRegex = $@"(?:((från|under|i)\s+)?{StartMiddleEndRegex}(?<start>.+)\s*({StrictTillRegex})\s*{StartMiddleEndRegex}(?<end>.+)|((mellan)\s+){StartMiddleEndRegex}(?<start>.+)\s*({StrictRangeConnectorRegex})\s*{StartMiddleEndRegex}(?<end>.+))";
+      public static readonly string FailFastRegex = $@"{BaseDateTime.DeltaMinuteRegex}|\b(?:{BaseDateTime.BaseAmDescRegex}|{BaseDateTime.BasePmDescRegex})|{BaseDateTime.BaseAmPmDescRegex}|\b(?:noll|{WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|{WrittenTensRegex}|{WrittenMonthRegex}|{SeasonDescRegex}|{DecadeRegex}|centur(y|ies)|weekends?|quarters?|hal(f|ves)|yesterday|to(morrow|day|night)|tmr|noonish|\d(-|——)?ish|((the\s+\w*)|\d)(th|rd|nd|st)|(mid\s*(-\s*)?)?(night|morning|afternoon|day)s?|evenings?||noon|lunch(time)?|dinner(time)?|(day|night)time|overnight|dawn|dusk|sunset|hours?|hrs?|h|minutes?|mins?|seconds?|secs?|eo[dmy]|mardi[ -]?gras|birthday|eve|christmas|xmas|thanksgiving|halloween|yuandan|easter|yuan dan|april fools|cinco de mayo|all (hallow|souls)|guy fawkes|(st )?patrick|hundreds?|noughties|aughts|thousands?)\b|{WeekDayRegex}|{SetWeekDayRegex}|{NowRegex}|{PeriodicRegex}|\b({DateUnitRegex}|{ImplicitDayRegex})";
+      public static readonly Dictionary<string, string> UnitMap = new Dictionary<string, string>
+        {
+            { @"millennium", @"1000Y" },
+            { @"millennier", @"1000Y" },
+            { @"årtusenden", @"1000Y" },
+            { @"årtusende", @"1000Y" },
+            { @"sekel", @"100Y" },
+            { @"seklerna", @"100Y" },
+            { @"seklen", @"100Y" },
+            { @"decennium", @"10Y" },
+            { @"decenniet", @"10Y" },
+            { @"decennier", @"10Y" },
+            { @"lustrum", @"5Y" },
+            { @"åren", @"Y" },
+            { @"år", @"Y" },
+            { @"månaden", @"MON" },
+            { @"månaderna", @"MON" },
+            { @"månader", @"MON" },
+            { @"månad", @"MON" },
+            { @"kvartalen", @"3MON" },
+            { @"kvartalet", @"3MON" },
+            { @"kvartal", @"3MON" },
+            { @"halvåret", @"6MON" },
+            { @"halvår", @"6MON" },
+            { @"veckorna", @"W" },
+            { @"veckor", @"W" },
+            { @"veckan", @"W" },
+            { @"vecka", @"W" },
+            { @"weekends", @"WE" },
+            { @"weekend", @"WE" },
+            { @"helgerna", @"WE" },
+            { @"helger", @"WE" },
+            { @"helgen", @"WE" },
+            { @"helg", @"WE" },
+            { @"veckolsuten", @"WE" },
+            { @"veckoslutet", @"WE" },
+            { @"veckoslut", @"WE" },
+            { @"veckodagarna", @"D" },
+            { @"veckodagar", @"D" },
+            { @"veckodagen", @"D" },
+            { @"veckodag", @"D" },
+            { @"dagarna", @"D" },
+            { @"dagar", @"D" },
+            { @"dagen", @"D" },
+            { @"dag", @"D" },
+            { @"halvdagarna", @"12H" },
+            { @"halvdagen", @"12H" },
+            { @"halvdagar", @"12H" },
+            { @"halvdag", @"12H" },
+            { @"dygnen", @"24H" },
+            { @"dygn", @"24H" },
+            { @"nätterna", @"D" },
+            { @"nätter", @"D" },
+            { @"natten", @"D" },
+            { @"natt", @"D" },
+            { @"timmarna", @"H" },
+            { @"timmar", @"H" },
+            { @"timmen", @"H" },
+            { @"timme", @"H" },
+            { @"tim", @"H" },
+            { @"halvtimmarna", @"30M" },
+            { @"halvtimmen", @"30M" },
+            { @"halvtimmar", @"30M" },
+            { @"halvtimme", @"30M" },
+            { @"hrs", @"H" },
+            { @"hr", @"H" },
+            { @"h", @"H" },
+            { @"kvarten", @"15M" },
+            { @"kvart", @"15M" },
+            { @"minuterna", @"M" },
+            { @"minuter", @"M" },
+            { @"minuten", @"M" },
+            { @"minut", @"M" },
+            { @"min", @"M" },
+            { @"sekunderna", @"S" },
+            { @"sekunder", @"S" },
+            { @"sekunden", @"S" },
+            { @"sekund", @"S" },
+            { @"sek", @"S" },
+            { @"s", @"S" }
+        };
+      public static readonly Dictionary<string, long> UnitValueMap = new Dictionary<string, long>
+        {
+            { @"millennium", 31536000000 },
+            { @"millennier", 31536000000 },
+            { @"årtusenden", 31536000000 },
+            { @"årtusende", 31536000000 },
+            { @"sekel", 3153600000 },
+            { @"seklerna", 3153600000 },
+            { @"decennium", 315360000 },
+            { @"decenniet", 315360000 },
+            { @"decennier", 315360000 },
+            { @"lustrum", 157680000 },
+            { @"åren", 31536000 },
+            { @"året", 31536000 },
+            { @"år", 31536000 },
+            { @"månaden", 2592000 },
+            { @"månaderna", 2592000 },
+            { @"månader", 2592000 },
+            { @"månad", 2592000 },
+            { @"weekends", 172800 },
+            { @"weekend", 172800 },
+            { @"helgerna", 172800 },
+            { @"helger", 172800 },
+            { @"helgen", 172800 },
+            { @"helg", 172800 },
+            { @"veckolsuten", 172800 },
+            { @"veckoslutet", 172800 },
+            { @"veckoslut", 172800 },
+            { @"veckorna", 604800 },
+            { @"veckor", 604800 },
+            { @"veckan", 604800 },
+            { @"vecka", 604800 },
+            { @"dygnen", 86400 },
+            { @"dygn", 86400 },
+            { @"dagarna", 86400 },
+            { @"dagar", 86400 },
+            { @"dagen", 86400 },
+            { @"dag", 86400 },
+            { @"nätterna", 86400 },
+            { @"nätter", 86400 },
+            { @"natten", 86400 },
+            { @"natt", 86400 },
+            { @"halvdagarna", 43200 },
+            { @"halvdagen", 43200 },
+            { @"halvdagar", 43200 },
+            { @"halvdag", 43200 },
+            { @"timmarna", 3600 },
+            { @"timmar", 3600 },
+            { @"timmen", 3600 },
+            { @"timme", 3600 },
+            { @"tim", 3600 },
+            { @"halvtimmarna", 1800 },
+            { @"halvtimmen", 1800 },
+            { @"halvtimmar", 1800 },
+            { @"halvtimme", 1800 },
+            { @"hrs", 3600 },
+            { @"hr", 3600 },
+            { @"h", 3600 },
+            { @"kvarten", 900 },
+            { @"kvart", 900 },
+            { @"minuterna", 60 },
+            { @"minuter", 60 },
+            { @"minuten", 60 },
+            { @"minut", 60 },
+            { @"min", 60 },
+            { @"sekunderna", 1 },
+            { @"sekunder", 1 },
+            { @"sekunden", 1 },
+            { @"sekund", 1 },
+            { @"secs", 1 },
+            { @"sec", 1 }
+        };
+      public static readonly Dictionary<string, string> SpecialYearPrefixesMap = new Dictionary<string, string>
+        {
+            { @"räkenskapsåret", @"FY" },
+            { @"räkenskapsår", @"FY" },
+            { @"bokföringsåret", @"FY" },
+            { @"bokföringsår", @"FY" },
+            { @"skolåret", @"SY" },
+            { @"skolår", @"SY" },
+            { @"läsåret", @"SY" },
+            { @"läsår", @"SY" }
+        };
+      public static readonly Dictionary<string, string> SeasonMap = new Dictionary<string, string>
+        {
+            { @"vår", @"SP" },
+            { @"sommar", @"SU" },
+            { @"höst", @"FA" },
+            { @"vinter", @"WI" }
+        };
+      public static readonly Dictionary<string, int> SeasonValueMap = new Dictionary<string, int>
+        {
+            { @"SP", 3 },
+            { @"SU", 6 },
+            { @"FA", 9 },
+            { @"WI", 12 }
+        };
+      public static readonly Dictionary<string, int> CardinalMap = new Dictionary<string, int>
+        {
+            { @"första", 1 },
+            { @"förste", 1 },
+            { @"1\:a", 1 },
+            { @"1\:e", 1 },
+            { @"andra", 2 },
+            { @"andre", 2 },
+            { @"2\:a", 2 },
+            { @"2\:e", 2 },
+            { @"tredje", 3 },
+            { @"3\:e", 3 },
+            { @"fjärde", 4 },
+            { @"4\:e", 4 },
+            { @"femte", 5 },
+            { @"5\:e", 5 }
+        };
+      public static readonly Dictionary<string, int> DayOfWeek = new Dictionary<string, int>
+        {
+            { @"måndag", 1 },
+            { @"månd", 1 },
+            { @"mån", 1 },
+            { @"må", 1 },
+            { @"tisdag", 2 },
+            { @"tisd", 2 },
+            { @"tis", 2 },
+            { @"ti", 2 },
+            { @"onsdag", 3 },
+            { @"onsd", 3 },
+            { @"ons", 3 },
+            { @"on", 3 },
+            { @"torsdag", 4 },
+            { @"torsd", 4 },
+            { @"tors", 4 },
+            { @"tor", 4 },
+            { @"to", 4 },
+            { @"fredag", 5 },
+            { @"fred", 5 },
+            { @"fre", 5 },
+            { @"fr", 5 },
+            { @"lördag", 6 },
+            { @"lörd", 6 },
+            { @"lör", 6 },
+            { @"lö", 6 },
+            { @"söndag", 0 },
+            { @"sönd", 0 },
+            { @"sön", 0 },
+            { @"sö", 0 }
+        };
+      public static readonly Dictionary<string, int> MonthOfYear = new Dictionary<string, int>
+        {
+            { @"januari", 1 },
+            { @"februari", 2 },
+            { @"mars", 3 },
+            { @"april", 4 },
+            { @"maj", 5 },
+            { @"juni", 6 },
+            { @"juli", 7 },
+            { @"augusti", 8 },
+            { @"september", 9 },
+            { @"oktober", 10 },
+            { @"november", 11 },
+            { @"december", 12 },
+            { @"jan", 1 },
+            { @"feb", 2 },
+            { @"mar", 3 },
+            { @"apr", 4 },
+            { @"jun", 6 },
+            { @"jul", 7 },
+            { @"aug", 8 },
+            { @"sep", 9 },
+            { @"sept.", 9 },
+            { @"sept", 9 },
+            { @"okt", 10 },
+            { @"nov", 11 },
+            { @"dec", 12 },
+            { @"1", 1 },
+            { @"2", 2 },
+            { @"3", 3 },
+            { @"4", 4 },
+            { @"5", 5 },
+            { @"6", 6 },
+            { @"7", 7 },
+            { @"8", 8 },
+            { @"9", 9 },
+            { @"10", 10 },
+            { @"11", 11 },
+            { @"12", 12 },
+            { @"01", 1 },
+            { @"02", 2 },
+            { @"03", 3 },
+            { @"04", 4 },
+            { @"05", 5 },
+            { @"06", 6 },
+            { @"07", 7 },
+            { @"08", 8 },
+            { @"09", 9 }
+        };
+      public static readonly Dictionary<string, int> Numbers = new Dictionary<string, int>
+        {
+            { @"noll", 0 },
+            { @"ett", 1 },
+            { @"en", 1 },
+            { @"två", 2 },
+            { @"tre", 3 },
+            { @"fyra", 4 },
+            { @"fem", 5 },
+            { @"sex", 6 },
+            { @"sju", 7 },
+            { @"åtta", 8 },
+            { @"nio", 9 },
+            { @"tio", 10 },
+            { @"elva", 11 },
+            { @"tolv", 12 },
+            { @"tretton", 13 },
+            { @"fjorton", 14 },
+            { @"femton", 15 },
+            { @"sexton", 16 },
+            { @"sjutton", 17 },
+            { @"arton", 18 },
+            { @"nitton", 19 },
+            { @"tjugo", 20 },
+            { @"tjugoett", 21 },
+            { @"tjugoen", 21 },
+            { @"tjugotvå", 22 },
+            { @"tjugotre", 23 },
+            { @"tjugofyra", 24 },
+            { @"tjugofem", 25 },
+            { @"tjugosex", 26 },
+            { @"tjugosju", 27 },
+            { @"tjugoåtta", 28 },
+            { @"tjugonio", 29 },
+            { @"trettio", 30 },
+            { @"trettioett", 31 },
+            { @"trettioen", 31 },
+            { @"trettiotvå", 32 },
+            { @"trettiotre", 33 },
+            { @"trettiofyra", 34 },
+            { @"trettiofem", 35 },
+            { @"trettiosex", 36 },
+            { @"trettiosju", 37 },
+            { @"trettioåtta", 38 },
+            { @"trettionio", 39 },
+            { @"fyrtio", 40 },
+            { @"fyrtioett", 41 },
+            { @"fyrtioen", 41 },
+            { @"fyrtiotvå", 42 },
+            { @"fyrtiotre", 43 },
+            { @"fyrtiofyra", 44 },
+            { @"fyrtiofem", 45 },
+            { @"fyrtiosex", 46 },
+            { @"fyrtiosju", 47 },
+            { @"fyrtioåtta", 48 },
+            { @"fyrtionio", 49 },
+            { @"femtio", 50 },
+            { @"femtioett", 51 },
+            { @"femtioen", 51 },
+            { @"femtiotvå", 52 },
+            { @"femtiotre", 53 },
+            { @"femtiofyra", 54 },
+            { @"femtiofem", 55 },
+            { @"femtiosex", 56 },
+            { @"femtiosju", 57 },
+            { @"femtioåtta", 58 },
+            { @"femtionio", 59 },
+            { @"sextio", 60 },
+            { @"sextioett", 61 },
+            { @"sextioen", 61 },
+            { @"sextiotvå", 62 },
+            { @"sextiotre", 63 },
+            { @"sextiofyra", 64 },
+            { @"sextiofem", 65 },
+            { @"sextiosex", 66 },
+            { @"sextiosju", 67 },
+            { @"sextioåtta", 68 },
+            { @"sextionio", 69 },
+            { @"sjuttio", 70 },
+            { @"sjuttioett", 71 },
+            { @"sjuttioen", 71 },
+            { @"sjuttiotvå", 72 },
+            { @"sjuttiotre", 73 },
+            { @"sjuttiofyra", 74 },
+            { @"sjuttiofem", 75 },
+            { @"sjuttiosex", 76 },
+            { @"sjuttiosju", 77 },
+            { @"sjuttioåtta", 78 },
+            { @"sjuttionio", 79 },
+            { @"åttio", 80 },
+            { @"åttioett", 81 },
+            { @"åttioen", 81 },
+            { @"åttiotvå", 82 },
+            { @"åttiotre", 83 },
+            { @"åttiofyra", 84 },
+            { @"åttiofem", 85 },
+            { @"åttiosex", 86 },
+            { @"åttiosju", 87 },
+            { @"åttioåtta", 88 },
+            { @"åttionio", 89 },
+            { @"nittio", 90 },
+            { @"nittioett", 91 },
+            { @"nittioen", 91 },
+            { @"nittiotvå", 92 },
+            { @"nittiotre", 93 },
+            { @"nittiofyra", 94 },
+            { @"nittiofem", 95 },
+            { @"nittiosex", 96 },
+            { @"nittiosju", 97 },
+            { @"nittioåtta", 98 },
+            { @"nittionio", 99 },
+            { @"etthundra", 100 },
+            { @"hundra", 100 }
+        };
+      public static readonly Dictionary<string, int> DayOfMonth = new Dictionary<string, int>
+        {
+            { @"1", 1 },
+            { @"2", 2 },
+            { @"3", 3 },
+            { @"4", 4 },
+            { @"5", 5 },
+            { @"6", 6 },
+            { @"7", 7 },
+            { @"8", 8 },
+            { @"9", 9 },
+            { @"10", 10 },
+            { @"11", 11 },
+            { @"12", 12 },
+            { @"13", 13 },
+            { @"14", 14 },
+            { @"15", 15 },
+            { @"16", 16 },
+            { @"17", 17 },
+            { @"18", 18 },
+            { @"19", 19 },
+            { @"20", 20 },
+            { @"21", 21 },
+            { @"22", 22 },
+            { @"23", 23 },
+            { @"24", 24 },
+            { @"25", 25 },
+            { @"26", 26 },
+            { @"27", 27 },
+            { @"28", 28 },
+            { @"29", 29 },
+            { @"30", 30 },
+            { @"31", 31 }
+        };
+      public static readonly Dictionary<string, double> DoubleNumbers = new Dictionary<string, double>
+        {
+            { @"halvannan", 1.5 },
+            { @"halvannat", 1.5 },
+            { @"halva", 0.5 },
+            { @"halv", 0.5 },
+            { @"kvartal", 0.25 },
+            { @"kvarts", 0.25 },
+            { @"kvart", 0.25 },
+            { @"tre kvarts", 0.75 },
+            { @"tre kvart", 0.75 },
+            { @"trekvarts", 0.75 }
+        };
+      public static readonly Dictionary<string, IEnumerable<string>> HolidayNames = new Dictionary<string, IEnumerable<string>>
+        {
+            { @"easterday", new string[] { @"easterday", @"easter", @"eastersunday" } },
+            { @"ashwednesday", new string[] { @"ashwednesday" } },
+            { @"palmsunday", new string[] { @"palmsunday" } },
+            { @"maundythursday", new string[] { @"maundythursday" } },
+            { @"goodfriday", new string[] { @"goodfriday" } },
+            { @"eastersaturday", new string[] { @"eastersaturday" } },
+            { @"eastermonday", new string[] { @"eastermonday" } },
+            { @"ascensionday", new string[] { @"ascensionday" } },
+            { @"whitesunday", new string[] { @"whitesunday", @"pentecost", @"pentecostday" } },
+            { @"whitemonday", new string[] { @"whitemonday" } },
+            { @"trinitysunday", new string[] { @"trinitysunday" } },
+            { @"corpuschristi", new string[] { @"corpuschristi" } },
+            { @"earthday", new string[] { @"earthday" } },
+            { @"fathers", new string[] { @"fatherday", @"fathersday" } },
+            { @"mothers", new string[] { @"motherday", @"mothersday" } },
+            { @"thanksgiving", new string[] { @"thanksgivingday", @"thanksgiving" } },
+            { @"blackfriday", new string[] { @"blackfriday" } },
+            { @"cybermonday", new string[] { @"cybermonday" } },
+            { @"martinlutherking", new string[] { @"mlkday", @"martinlutherkingday", @"martinlutherkingjrday" } },
+            { @"washingtonsbirthday", new string[] { @"washingtonsbirthday", @"washingtonbirthday", @"presidentsday" } },
+            { @"canberra", new string[] { @"canberraday" } },
+            { @"labour", new string[] { @"labourday", @"laborday" } },
+            { @"columbus", new string[] { @"columbusday" } },
+            { @"memorial", new string[] { @"memorialday" } },
+            { @"yuandan", new string[] { @"yuandan" } },
+            { @"maosbirthday", new string[] { @"maosbirthday" } },
+            { @"teachersday", new string[] { @"teachersday", @"teacherday" } },
+            { @"singleday", new string[] { @"singleday" } },
+            { @"allsaintsday", new string[] { @"allsaintsday" } },
+            { @"youthday", new string[] { @"youthday" } },
+            { @"childrenday", new string[] { @"childrenday", @"childday" } },
+            { @"femaleday", new string[] { @"femaleday" } },
+            { @"treeplantingday", new string[] { @"treeplantingday" } },
+            { @"arborday", new string[] { @"arborday" } },
+            { @"girlsday", new string[] { @"girlsday" } },
+            { @"whiteloverday", new string[] { @"whiteloverday" } },
+            { @"loverday", new string[] { @"loverday", @"loversday" } },
+            { @"christmas", new string[] { @"christmasday", @"christmas" } },
+            { @"xmas", new string[] { @"xmasday", @"xmas" } },
+            { @"newyear", new string[] { @"newyear" } },
+            { @"newyearday", new string[] { @"newyearday" } },
+            { @"newyearsday", new string[] { @"newyearsday" } },
+            { @"inaugurationday", new string[] { @"inaugurationday" } },
+            { @"groundhougday", new string[] { @"groundhougday" } },
+            { @"valentinesday", new string[] { @"valentinesday" } },
+            { @"stpatrickday", new string[] { @"stpatrickday", @"stpatricksday", @"stpatrick" } },
+            { @"aprilfools", new string[] { @"aprilfools" } },
+            { @"stgeorgeday", new string[] { @"stgeorgeday" } },
+            { @"mayday", new string[] { @"mayday", @"intlworkersday", @"internationalworkersday", @"workersday" } },
+            { @"cincodemayoday", new string[] { @"cincodemayoday" } },
+            { @"baptisteday", new string[] { @"baptisteday" } },
+            { @"usindependenceday", new string[] { @"usindependenceday" } },
+            { @"independenceday", new string[] { @"independenceday" } },
+            { @"bastilleday", new string[] { @"bastilleday" } },
+            { @"halloweenday", new string[] { @"halloweenday", @"halloween" } },
+            { @"allhallowday", new string[] { @"allhallowday" } },
+            { @"allsoulsday", new string[] { @"allsoulsday" } },
+            { @"guyfawkesday", new string[] { @"guyfawkesday" } },
+            { @"veteransday", new string[] { @"veteransday" } },
+            { @"christmaseve", new string[] { @"christmaseve" } },
+            { @"newyeareve", new string[] { @"newyearseve", @"newyeareve" } },
+            { @"juneteenth", new string[] { @"juneteenth", @"freedomday", @"jubileeday" } }
+        };
+      public static readonly Dictionary<string, int> WrittenDecades = new Dictionary<string, int>
+        {
+            { @"hundratalet", 0 },
+            { @"tiotalet", 10 },
+            { @"tio-talet", 10 },
+            { @"tjugotalet", 20 },
+            { @"tjugo-talet", 20 },
+            { @"trettiotalet", 30 },
+            { @"trettio-talet", 30 },
+            { @"fyrtio-talet", 40 },
+            { @"fyrtiotalet", 40 },
+            { @"femtiotalet", 50 },
+            { @"femtio-talet", 50 },
+            { @"sextiotalet", 60 },
+            { @"sextio-talet", 60 },
+            { @"sjuttiotalet", 70 },
+            { @"sjuttio-talet", 70 },
+            { @"åttiotalet", 80 },
+            { @"åttio-talet", 80 },
+            { @"nittiotalet", 90 },
+            { @"nittio-talet", 90 },
+            { @"00-talet", 0 },
+            { @"10-talet", 10 },
+            { @"20-talet", 20 },
+            { @"30-talet", 30 },
+            { @"40-talet", 40 },
+            { @"50-talet", 50 },
+            { @"60-talet", 60 },
+            { @"70-talet", 70 },
+            { @"80-talet", 80 },
+            { @"90-talet", 90 }
+        };
+      public static readonly Dictionary<string, int> SpecialDecadeCases = new Dictionary<string, int>
+        {
+            { @"år 0", 0 },
+            { @"år noll", 0 },
+            { @"2000-talet", 2000 },
+            { @"tjugohundratalet", 2000 },
+            { @"tvåtusen talet", 2000 },
+            { @"tvåtusentalet", 2000 },
+            { @"tvåtusen-talet", 2000 },
+            { @"tjugohundra", 2000 }
+        };
+      public const string DefaultLanguageFallback = @"MDY";
+      public static readonly IList<string> SuperfluousWordList = new List<string>
+        {
+            @"helst",
+            @"hur skulle det vara",
+            @"kanske",
+            @"låt oss säga",
+            @"typ",
+            @"skulle föredra"
+        };
+      public static readonly string[] DurationDateRestrictions = { @"today", @"now" };
+      public static readonly Dictionary<string, string> AmbiguityFiltersDict = new Dictionary<string, string>
+        {
+            { @"^(morning|afternoon|evening|night|day)\b", @"\b(good\s+(morning|afternoon|evening|night|day))|(nighty\s+night)\b" },
+            { @"\bnow\b", @"\b(^now,)|\b((is|are)\s+now\s+for|for\s+now)\b" },
+            { @"\bmay\b", @"\b((((!|\.|\?|,|;|)\s+|^)may i)|(i|you|he|she|we|they)\s+may|(may\s+((((also|not|(also not)|well)\s+)?(be|ask|contain|constitute|e-?mail|take|have|result|involve|get|work|reply|differ))|(or may not))))\b" },
+            { @"\b(a|one) second\b", @"\b(?<!an?\s+)(a|one) second (round|time)\b" },
+            { @"\b(breakfast|brunch|lunch(time)?|dinner(time)?|supper)$", @"(?<!\b(at|before|after|around|circa)\b\s)(breakfast|brunch|lunch|dinner|supper)(?!\s*time)" },
+            { @"^\d+m$", @"^\d+m$" }
+        };
+      public static readonly IList<string> MorningTermList = new List<string>
+        {
+            @"morgon",
+            @"ottan"
+        };
+      public static readonly IList<string> AfternoonTermList = new List<string>
+        {
+            @"eftermiddag",
+            @"efter lunch"
+        };
+      public static readonly IList<string> EveningTermList = new List<string>
+        {
+            @"kväll"
+        };
+      public static readonly IList<string> MealtimeBreakfastTermList = new List<string>
+        {
+            @"frukost"
+        };
+      public static readonly IList<string> MealtimeBrunchTermList = new List<string>
+        {
+            @"brunch"
+        };
+      public static readonly IList<string> MealtimeLunchTermList = new List<string>
+        {
+            @"lunchtid",
+            @"lunch"
+        };
+      public static readonly IList<string> MealtimeDinnerTermList = new List<string>
+        {
+            @"middagstid",
+            @"middag",
+            @"kvällsmat"
+        };
+      public static readonly IList<string> DaytimeTermList = new List<string>
+        {
+            @"dagtid",
+            @"på dagen"
+        };
+      public static readonly IList<string> NightTermList = new List<string>
+        {
+            @"natt",
+            @"på natten"
+        };
+      public static readonly IList<string> SameDayTerms = new List<string>
+        {
+            @"idag",
+            @"i dag",
+            @"innevarande dag"
+        };
+      public static readonly IList<string> PlusOneDayTerms = new List<string>
+        {
+            @"imorgon",
+            @"i morgon",
+            @"dagen efter",
+            @"efterföljande dag"
+        };
+      public static readonly IList<string> MinusOneDayTerms = new List<string>
+        {
+            @"igår",
+            @"i går",
+            @"dagen före",
+            @"föregående dag"
+        };
+      public static readonly IList<string> PlusTwoDayTerms = new List<string>
+        {
+            @"övermorgon",
+            @"i övermorgon",
+            @"dagen efter imorgon",
+            @"dagen efter i morgon"
+        };
+      public static readonly IList<string> MinusTwoDayTerms = new List<string>
+        {
+            @"förrgår",
+            @"i förrgår"
+        };
+      public static readonly IList<string> FutureTerms = new List<string>
+        {
+            @"kommande",
+            @"nästa"
+        };
+      public static readonly IList<string> LastCardinalTerms = new List<string>
+        {
+            @"förra",
+            @"senaste"
+        };
+      public static readonly IList<string> MonthTerms = new List<string>
+        {
+            @"månad",
+            @"månaden"
+        };
+      public static readonly IList<string> MonthToDateTerms = new List<string>
+        {
+            @"månaden fram till idag",
+            @"månaden fram till i dag",
+            @"månaden fram tills idag",
+            @"månaden fram tills i dag"
+        };
+      public static readonly IList<string> WeekendTerms = new List<string>
+        {
+            @"weekend",
+            @"helgen",
+            @"helg"
+        };
+      public static readonly IList<string> WeekTerms = new List<string>
+        {
+            @"veckan",
+            @"veckor",
+            @"vecka"
+        };
+      public static readonly IList<string> YearTerms = new List<string>
+        {
+            @"år"
+        };
+      public static readonly IList<string> GenericYearTerms = new List<string>
+        {
+            @"y"
+        };
+      public static readonly IList<string> YearToDateTerms = new List<string>
+        {
+            @"year to date",
+            @"hittills under året",
+            @"året hittills"
+        };
+      public const string DoubleMultiplierRegex = @"^(bi)(-|\s)?";
+      public const string HalfMultiplierRegex = @"^(semi)(-|\s)?";
+      public const string DayTypeRegex = @"((week)?da(il)?ys?)$";
+      public const string WeekTypeRegex = @"(week(s|ly)?)$";
+      public const string WeekendTypeRegex = @"(weekends?)$";
+      public const string MonthTypeRegex = @"(månad(er)?|månatligen|varje månad)$";
+      public const string QuarterTypeRegex = @"(quarter(s|ly)?)$";
+      public const string YearTypeRegex = @"((years?|annual)(ly)?)$";
     }
 }

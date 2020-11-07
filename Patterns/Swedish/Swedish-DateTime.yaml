@@ -18,7 +18,7 @@ StrictRelativeRegex: !nestedRegex
   def: \b(?<order>efterföljande|nästa|kommande|denna|{LastNegPrefix}senaste|föregående|tidigare|nuvarande)\b
   references: [ LastNegPrefix ]
 UpcomingPrefixRegex: !simpleRegex
-  def: ((den\s+)?((kommande))
+  def: (den\s+)?(kommande)
 NextPrefixRegex: !nestedRegex 
   def: \b(efterföljande|nästa|{UpcomingPrefixRegex})\b
   references: [ UpcomingPrefixRegex ]
@@ -105,7 +105,7 @@ RelativeMonthRegex: !nestedRegex
   def: (?<relmonth>((dag\s+)?i\s+)?{RelativeRegex}\s+månad)\b
   references: [RelativeRegex]
 WrittenMonthRegex: !simpleRegex
-  def: ((?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sept(ember)?|sept?)((\s+månad)?)
+  def: (?<month>apr(il)?|aug(usti)?|dec(ember)?|feb(ruari)?|jan(uari)?|juli?|juni?|mar(s)?|maj|nov(ember)?|okt(ober)?|sept(ember)?|sept?)((\s+månad)?)
 MonthSuffixRegex: !nestedRegex
   def: (?<msuf>(?:(i|under)\s+)?({RelativeMonthRegex}|{WrittenMonthRegex}))
   references: [ RelativeMonthRegex, WrittenMonthRegex ]
@@ -174,7 +174,7 @@ HalfYearBackRegex: !nestedRegex
   def: (h(?<number>[1-2])|({HalfYearTermRegex}))(\s*,\s*)?\s+({YearRegex})
   references: [ YearRegex, HalfYearTermRegex ]
 HalfYearRelativeRegex: !nestedRegex
-  def: {HalfYearTermRegex}(\s*,\s*)?\s+({RelativeRegex}\s+år)
+  def: ({HalfYearTermRegex}(\s*,\s*)?\s+({RelativeRegex}\s+år))
   references: [ RelativeRegex, HalfYearTermRegex ]
 AllHalfYearRegex: !nestedRegex
   def: ({HalfYearFrontRegex})|({HalfYearBackRegex})|({HalfYearRelativeRegex})
