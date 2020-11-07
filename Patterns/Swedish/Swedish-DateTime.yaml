@@ -12,7 +12,7 @@ RangeConnectorRegex : !nestedRegex
 LastNegPrefix: !simpleRegex
   def: (?<!(w(ill|ould|on\s*'\s*t)|m(ay|ight|ust)|sh(all|ould(n\s*'\s*t)?)|c(an(\s*'\s*t|not)?|ould(n\s*'\s*t)?))(\s+not)?\s+)
 RelativeRegex: !nestedRegex
-  def: \b(?<order>efterföljande|nästa|kommande|denna|{LastNegPrefix}senaste|föregående|tidigare|nuvarande|the)\b
+  def: \b(?<order>efterföljande|nästa|kommande|denna|{LastNegPrefix}senaste|föregående|tidigare|nuvarande|den)\b
   references: [ LastNegPrefix ]
 StrictRelativeRegex: !nestedRegex
   def: \b(?<order>efterföljande|nästa|kommande|denna|{LastNegPrefix}senaste|föregående|tidigare|nuvarande)\b
