@@ -1,55 +1,37 @@
 ﻿[
   {
     "Input": "jag är tillbaka den 15",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
         "Text": "15",
         "Type": "date",
-        "Start": 16,
+        "Start": 20,
         "Length": 2
       }
     ]
   },
   {
-    "Input": "jag är tillbaka den 22 april",
+    "Input": "jag är tillbaka 22 april",
+    "NotSupportedByDesign": "javascript, python, java",
     "Results": [
       {
-        "Text": "den 22 april",
+        "Text": "22 april",
         "Type": "date",
         "Start": 16,
-        "Length": 12
+        "Length": 8
       }
     ]
   },
   {
-    "Input": "i'll go back jan-1",
+    "Input": "jag är tillbaka den 2 oktober",
+    "NotSupportedByDesign": "javascript, python, java",
+    "Debug":  true,
     "Results": [
       {
-        "Text": "jan-1",
+        "Text": "2 oktober",
         "Type": "date",
-        "Start": 13,
-        "Length": 5
-      }
-    ]
-  },
-  {
-    "Input": "i'll go back jan/1",
-    "Results": [
-      {
-        "Text": "jan/1",
-        "Type": "date",
-        "Start": 13,
-        "Length": 5
-      }
-    ]
-  },
-  {
-    "Input": "i'll go back october. 2",
-    "Results": [
-      {
-        "Text": "october. 2",
-        "Type": "date",
-        "Start": 13,
+        "Start": 16,
         "Length": 10
       }
     ]

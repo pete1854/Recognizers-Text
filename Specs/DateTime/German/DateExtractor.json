@@ -1,6 +1,7 @@
 [
   {
     "Input": "Ich komme am 22. April zurück",
+    "Debug": true,
     "NotSupported": "javascript, python",
     "Results": [
       {

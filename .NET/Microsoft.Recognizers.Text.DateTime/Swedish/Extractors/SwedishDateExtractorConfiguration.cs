@@ -121,7 +121,7 @@ namespace Microsoft.Recognizers.Text.DateTime.Swedish
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
 
         private static readonly Regex DayRegex =
-            new Regex(DateTimeDefinitions.ImplicitDayRegex, RegexFlags);
+            new Regex(DateTimeDefinitions.DayRegex, RegexFlags);
 
         public SwedishDateExtractorConfiguration(IDateTimeOptionsConfiguration config)
             : base(config)
