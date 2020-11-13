@@ -20,11 +20,11 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
             var builder = ImmutableDictionary.CreateBuilder<Regex, TypeTag>();
 
             // Add Integer Regexes
-            var intExtract = IntegerExtractor.GetInstance(placeholder);
+            var intExtract = IntegerExtractor.GetInstance(config);
             builder.AddRange(intExtract.Regexes);
 
             // Add Double Regexes
-            var douExtract = DoubleExtractor.GetInstance(placeholder);
+            var douExtract = DoubleExtractor.GetInstance(config);
             builder.AddRange(douExtract.Regexes);
 
             Regexes = builder.ToImmutable();
@@ -34,8 +34,9 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
         protected sealed override string ExtractType { get; } = Constants.SYS_NUM_CARDINAL; // "Cardinal";
 
-        public static CardinalExtractor GetInstance(string placeholder = NumbersDefinitions.PlaceHolderDefault)
+        public static CardinalExtractor GetInstance(BaseNumberOptionsConfiguration config)
         {
+
             var extractorKey = config.Placeholder;
 
             if (!Instances.ContainsKey(extractorKey))

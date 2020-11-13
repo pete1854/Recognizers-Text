@@ -15,28 +15,24 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
         private readonly string keyPrefix;
 
-        private NumberExtractor(NumberMode mode, NumberOptions options)
-            : base(options)
+        private NumberExtractor(BaseNumberOptionsConfiguration config)
+            : base(config.Options)
         {
 
-            this.mode = config.Mode;
-
-            NegativeNumberTermsRegex = new Regex(NumbersDefinitions.NegativeNumberTermsRegex + "$", RegexFlags);
+            keyPrefix = string.Intern(ExtractType + "_" + config.Options + "_" + config.Mode + "_" + config.Culture);
 
             NegativeNumberTermsRegex = new Regex(NumbersDefinitions.NegativeNumberTermsRegex + '$', RegexFlags);
-
-            RelativeReferenceRegex = new Regex(NumbersDefinitions.RelativeOrdinalRegex, RegexFlags);
-
-            Options = config.Options;
 
             var builder = ImmutableDictionary.CreateBuilder<Regex, TypeTag>();
 
             // Add Cardinal
             CardinalExtractor cardExtract = null;
-            switch (mode)
+            switch (config.Mode)
             {
                 case NumberMode.PureNumber:
-                    cardExtract = CardinalExtractor.GetInstance(NumbersDefinitions.PlaceHolderPureNumber);
+                    var purNumConfig = new BaseNumberOptionsConfiguration(config.Culture, config.Options, config.Mode,
+                                                                          NumbersDefinitions.PlaceHolderPureNumber);
+                    cardExtract = CardinalExtractor.GetInstance(purNumConfig);
                     break;
                 case NumberMode.Currency:
                     builder.Add(
@@ -49,13 +45,13 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
             if (cardExtract == null)
             {
-                cardExtract = CardinalExtractor.GetInstance();
+                cardExtract = CardinalExtractor.GetInstance(config);
             }
 
             builder.AddRange(cardExtract.Regexes);
 
             // Add Fraction
-            var fracExtract = FractionExtractor.GetInstance(mode, Options);
+            var fracExtract = FractionExtractor.GetInstance(config);
             builder.AddRange(fracExtract.Regexes);
 
             Regexes = builder.ToImmutable();
@@ -82,22 +78,17 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
         protected sealed override Regex NegativeNumberTermsRegex { get; }
 
-        protected sealed override Regex AmbiguousFractionConnectorsRegex { get; }
-
-        protected sealed override Regex RelativeReferenceRegex { get; }
-
         public static NumberExtractor GetInstance(BaseNumberOptionsConfiguration config)
         {
-            var cacheKey = (config.Mode, config.Options);
-            if (!Instances.ContainsKey(cacheKey))
+            var extractorKey = (config.Mode, config.Options);
+
+            if (!Instances.ContainsKey(extractorKey))
             {
                 var instance = new NumberExtractor(config);
-                Instances.TryAdd(cacheKey, instance);
+                Instances.TryAdd(extractorKey, instance);
             }
 
-        protected override object GenKey(string input)
-        {
-            return (keyPrefix, input);
+            return Instances[extractorKey];
         }
 
         protected override object GenKey(string input)
