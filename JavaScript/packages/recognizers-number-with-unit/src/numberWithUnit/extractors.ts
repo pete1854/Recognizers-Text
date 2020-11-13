@@ -19,6 +19,7 @@ export interface INumberWithUnitExtractorConfiguration {
     readonly compoundUnitConnectorRegex: RegExp;
     readonly nonUnitRegex: RegExp;
     readonly ambiguousUnitNumberMultiplierRegex: RegExp;
+    expandHalfSuffix(source: string, result: ExtractResult[], numbers: ExtractResult[]): void;
 }
 
 export class NumberWithUnitExtractor implements IExtractor {
@@ -72,6 +73,43 @@ export class NumberWithUnitExtractor implements IExtractor {
         let numbers = this.config.unitNumExtractor.extract(source);
         let result = new Array<ExtractResult>();
         let sourceLen = source.length;
+
+        if (numbers.length > 0 && this.config.extractType == Constants.SYS_UNIT_CURRENCY) {
+            numbers.forEach(extNumber => {
+                let start = extNumber.start;
+                let length = extNumber.length;
+                let numberPrefix = false;
+                let numberSuffix = false;
+                this.prefixRegexes.forEach(regex => {
+                    let collection = RegExpUtility.getMatches(regex, source).filter(m => m.length);
+                    if (collection.length === 0) {
+                        return;
+                    }
+                    collection.forEach(match => {
+                        if (match.index + match.length == start) {
+                            numberPrefix = true;
+                        }
+                    });
+                });
+                this.suffixRegexes.forEach(regex => {
+                    let collection = RegExpUtility.getMatches(regex, source).filter(m => m.length);
+                    if (collection.length === 0) {
+                        return;
+                    }
+                    collection.forEach(match => {
+                        if (start + length == match.index) {
+                            numberSuffix = true;
+                        }
+                    });
+                });
+                if (numberPrefix && numberSuffix && extNumber.text.indexOf(",") != -1) {
+                    let commaIndex = start + extNumber.text.indexOf(",");
+                    source = source.substring(0, commaIndex) + " " + source.substring(commaIndex + 1)
+                }
+
+            })
+            numbers = this.config.unitNumExtractor.extract(source);
+        }
 
         /* Special case for cases where number multipliers clash with unit */
         let ambiguousMultiplierRegex = this.config.ambiguousUnitNumberMultiplierRegex;
@@ -225,6 +263,9 @@ export class NumberWithUnitExtractor implements IExtractor {
 
         // remove common ambiguous cases
         result = this.filterAmbiguity(result, source);
+
+        // expand Chinese phrase to the `half` patterns when it follows closely origin phrase.
+        this.config.expandHalfSuffix(source, result, numbers);
 
         return result;
     }

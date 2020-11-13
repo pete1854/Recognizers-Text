@@ -133,6 +133,7 @@ namespace Microsoft.Recognizers.Definitions.Italian
       public const string OclockRegex = @"(?<oclock>in punto)";
       public const string OclockPrefix = @"(?<oclock>ore)";
       public const string PmRegex = @"\b(?<pm>(((di|del|a(l(l')?)?|nel|il|per|verso)\s+(il\s+)?)?(pomeriggio|ora di pranzo))|(((di|della|nella|a|alla|verso|la|per|in)\s+)?(la\s+)?(notte|serata|sera|mezzanotte)))\b";
+      public const string RangePmRegex = @"\b(?<pm>(((di|del|a(l(l')?)?|nel|il|per|verso)\s+(il\s+)?)?(pomeriggio))|(((di|della|nella|a|alla|verso|la|per|in)\s+)?(la\s+)?(notte|serata|sera)))\b";
       public const string AmRegex = @"\b(?<am>((((la|alla|verso|per|della|di|in)\s+(la\s+)?)?(mattinata|mattina))|(((il|al|verso|per|del|di)\s+(il\s+)?)?(mattino))))\b";
       public const string LunchRegex = @"\b(ora di pranzo)\b";
       public const string NightRegex = @"\b(mezzanotte|notte)\b";
@@ -229,9 +230,11 @@ namespace Microsoft.Recognizers.Definitions.Italian
       public const string AgoPrefixRegex = @"\b(di)\b";
       public const string LaterRegex = @"\b(dopo|da\s+adesso|da\s+questo\s+momento)\b";
       public const string AgoRegex = @"\b(fa|prima|addietro)\b";
+      public const string BeforeAfterRegex = @"^[.]";
       public const string InConnectorRegex = @"\b(in|tra|fra|a)\b";
       public static readonly string SinceYearSuffixRegex = $@"(^\s*{SinceRegex}\s*(ann[oi]\s*)?({DateYearRegex}|{FullTextYearRegex}))";
       public static readonly string WithinNextPrefixRegex = $@"\b(entro(\s+(?<next>{NextPrefixRegex}))?)\b";
+      public const string TodayNowRegex = @"\b(oggi|adesso)\b";
       public static readonly string MorningStartEndRegex = $@"(^(((di\s+|questa\s+|sta)?mattin[oa]|mattinata)|{AmDescRegex}))|((((di\s+|questa\s+|sta)?mattin[oa]|mattinata)|{AmDescRegex})$)";
       public static readonly string AfternoonStartEndRegex = $@"(^((((di|al)\s+|questo\s+|sto)?pomeriggio)|{PmDescRegex}))|(((((di|il)\s+|questo\s+|sto)?pomeriggio)|{PmDescRegex})$)";
       public const string EveningStartEndRegex = @"(^((di\s+|questa\s+|sta)?sera|serata))|(((di\s+|questa\s+|sta)?sera|serata)$)";

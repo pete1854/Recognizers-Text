@@ -26,7 +26,7 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
             var regexes = new Dictionary<Regex, TypeTag>
             {
                 {
-                    new Regex(NumbersDefinitions.NumbersWithPlaceHolder(config.Placeholder), RegexFlags),
+                    new Regex(NumbersDefinitions.NumbersWithPlaceHolder(placeholder), RegexFlags),
                     RegexTagGenerator.GenerateRegexTag(Constants.INTEGER_PREFIX, Constants.NUMBER_SUFFIX)
                 },
                 {
@@ -54,11 +54,11 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
                     RegexTagGenerator.GenerateRegexTag(Constants.INTEGER_PREFIX, Constants.NUMBER_SUFFIX)
                 },*/
                 {
-                    GenerateLongFormatNumberRegexes(LongFormatType.IntegerNumBlank, config.Placeholder, RegexFlags),
+                    GenerateLongFormatNumberRegexes(LongFormatType.IntegerNumBlank, placeholder, RegexFlags),
                     RegexTagGenerator.GenerateRegexTag(Constants.INTEGER_PREFIX, Constants.NUMBER_SUFFIX)
                 },
                 {
-                    GenerateLongFormatNumberRegexes(LongFormatType.IntegerNumNoBreakSpace, config.Placeholder, RegexFlags),
+                    GenerateLongFormatNumberRegexes(LongFormatType.IntegerNumNoBreakSpace, placeholder, RegexFlags),
                     RegexTagGenerator.GenerateRegexTag(Constants.INTEGER_PREFIX, Constants.NUMBER_SUFFIX)
                 },
             };
@@ -71,11 +71,9 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
         // "Integer";
         protected sealed override string ExtractType { get; } = Constants.SYS_NUM_INTEGER;
 
-        public static IntegerExtractor GetInstance(BaseNumberOptionsConfiguration config)
+        public static IntegerExtractor GetInstance(string placeholder = NumbersDefinitions.PlaceHolderDefault)
         {
-            var extractorKey = config.Placeholder;
-
-            if (!Instances.ContainsKey(extractorKey))
+            if (!Instances.ContainsKey(placeholder))
             {
                 var instance = new IntegerExtractor(config);
                 Instances.TryAdd(extractorKey, instance);

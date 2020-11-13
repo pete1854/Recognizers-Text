@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 using Microsoft.Recognizers.Definitions.English;
@@ -41,6 +42,7 @@ namespace Microsoft.Recognizers.Text.DateTime.English
             StrictRelativeRegex = EnglishDateExtractorConfiguration.StrictRelativeRegex;
             YearSuffix = EnglishDateExtractorConfiguration.YearSuffix;
             RelativeWeekDayRegex = EnglishDateExtractorConfiguration.RelativeWeekDayRegex;
+            BeforeAfterRegex = EnglishDateExtractorConfiguration.BeforeAfterRegex;
 
             RelativeDayRegex = new Regex(DateTimeDefinitions.RelativeDayRegex, RegexFlags);
             NextPrefixRegex = new Regex(DateTimeDefinitions.NextPrefixRegex, RegexFlags);
@@ -126,6 +128,8 @@ namespace Microsoft.Recognizers.Text.DateTime.English
 
         public Regex PastPrefixRegex { get; }
 
+        public Regex BeforeAfterRegex { get; }
+
         public IImmutableDictionary<string, int> DayOfMonth { get; }
 
         public IImmutableDictionary<string, int> DayOfWeek { get; }
@@ -168,8 +172,12 @@ namespace Microsoft.Recognizers.Text.DateTime.English
 
         public bool IsCardinalLast(string text)
         {
+
+            // @TODO move hardcoded values to resources file
+
             var trimmedText = text.Trim();
-            return trimmedText.Equals("last");
+
+            return trimmedText.Equals("last", StringComparison.Ordinal);
         }
 
         public string Normalize(string text)

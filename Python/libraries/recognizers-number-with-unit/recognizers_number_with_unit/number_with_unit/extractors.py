@@ -81,6 +81,10 @@ class NumberWithUnitExtractorConfiguration(ABC):
     def culture_info(self) -> CultureInfo:
         return self._culture_info
 
+    @abstractmethod
+    def expand_half_suffix(self, source, result, numbers):
+        pass
+
     def __init__(self, culture_info: CultureInfo):
         self._culture_info = culture_info
 
@@ -156,11 +160,11 @@ class NumberWithUnitExtractor(Extractor):
         self.separate_regex = self._build_separate_regex_from_config()
 
     def extract(self, source: str) -> List[ExtractResult]:
-
         if not self._pre_check_str(source):
             return []
 
         non_unit_match = None
+        numbers = None
 
         mapping_prefix: Dict[float, PrefixUnitResult] = dict()
         matched = [False] * len(source)
@@ -172,6 +176,19 @@ class NumberWithUnitExtractor(Extractor):
         if len(prefix_match) > 0 or len(suffix_match) > 0:
 
             numbers: List[ExtractResult] = sorted(self.config.unit_num_extractor.extract(source), key=lambda o: o.start)
+
+            if len(numbers) > 0 and self.config.extract_type is Constants.SYS_UNIT_CURRENCY and len(prefix_match) > 0 and len(suffix_match) > 0:
+
+                for number in numbers:
+                    start = number.start
+                    length = number.length
+                    number_prefix = [(mr.start + mr.length) == start for mr in prefix_match]
+                    number_suffix = [mr.start == (start + length) for mr in suffix_match]
+                    if True in number_prefix and True in number_suffix and "," in number.text:
+                        comma_index = number.start + number.text.index(",")
+                        source = source[:comma_index] + " " + source[comma_index + 1:]
+
+                numbers: List[ExtractResult] = sorted(self.config.unit_num_extractor.extract(source), key=lambda o: o.start)
 
             # Special case for cases where number multipliers clash with unit
             ambiguous_multiplier_regex = self.config.ambiguous_unit_number_multiplier_regex
@@ -289,6 +306,9 @@ class NumberWithUnitExtractor(Extractor):
 
             # Remove common ambiguous cases
             result = self._filter_ambiguity(result, source)
+
+        # Expand Chinese phrase to the `half` patterns when it follows closely origin phrase.
+        self.config.expand_half_suffix(source, result, numbers)
 
         return result
 

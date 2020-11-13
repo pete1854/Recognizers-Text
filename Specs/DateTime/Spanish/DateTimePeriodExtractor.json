@@ -205,7 +205,8 @@
   },
   {
     "Input": "Regresaré por la noche",
-    "NotSupportedByDesign": "javascript",
+    "Comment": "In English only 'this night' is supported, 'at night' or 'by night' are not extracted as DateTimePeriod",
+    "NotSupportedByDesign": "dotnet, java, javascript, python",
     "Results": [
       {
         "Text": "la noche",
@@ -217,7 +218,8 @@
   },
   {
     "Input": "Regresaré a la madrugada",
-    "NotSupportedByDesign": "javascript",
+    "Comment": "In English only 'this night' is supported, 'at night' or 'by night' are not extracted as DateTimePeriod",
+    "NotSupportedByDesign": "dotnet, java, javascript, python",
     "Results": [
       {
         "Text": "a la madrugada",
@@ -240,15 +242,17 @@
   },
   {
     "Input": "Regresaré por la mañana",
-    "NotSupportedByDesign": "javascript",
+    "Comment": "In English only 'this night' is supported, 'at night' or 'by night' are not extracted as DateTimePeriod",
+    "NotSupportedByDesign": "dotnet, java, javascript, python",
+
     "Results": [
-        {
-          "Text": "la mañana",
-          "Type": "datetimerange",
-          "Start": 14,
-          "Length": 9
-        }
-      ]
+      {
+        "Text": "la mañana",
+        "Type": "datetimerange",
+        "Start": 14,
+        "Length": 9
+      }
+    ]
   },
   {
     "Input": "Regresaré esta mañana",
@@ -1285,7 +1289,7 @@
   },
   {
     "Input": "Ocurrirá 1/1/2015 después de 2:00",
-    "NotSupported": "dotnet, java, python",
+    "NotSupported": "java, python",
     "NotSupportedByDesign": "javascript",
     "Results": [
       {
@@ -1323,7 +1327,7 @@
   },
   {
     "Input": "Ocurrirá el próximo miércoles después de las 10 de la mañana",
-    "NotSupported": "dotnet, java, python",
+    "NotSupported": "java, python",
     "NotSupportedByDesign": "javascript",
     "Results": [
       {
@@ -1361,8 +1365,19 @@
   },
   {
     "Input": "Ocurrió la próxima semana después de las 2",
-    "NotSupported": "dotnet, java, python",
+    "NotSupported": "java, python",
     "NotSupportedByDesign": "javascript",
     "Results": []
+  },
+  {
+    "Input": "Regresaré esta madrugada",
+    "Results": [
+      {
+        "Text": "esta madrugada",
+        "Type": "datetimerange",
+        "Start": 10,
+        "Length": 14
+      }
+    ]
   }
 ]
