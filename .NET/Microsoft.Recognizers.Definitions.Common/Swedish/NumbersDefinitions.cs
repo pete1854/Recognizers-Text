@@ -97,9 +97,9 @@ namespace Microsoft.Recognizers.Definitions.Swedish
       public static readonly string OneNumberRangeLessSeparateRegex = $@"({EqualRegex}\s+(?<number1>({NumberSplitMark}.)+)(\s+eller\s+){LessRegexNoNumberSucceed})|({LessRegex}\s+(?<number1>({NumberSplitMark}.)+)(\s+eller\s+){EqualRegexNoNumberSucceed})";
       public static readonly string OneNumberRangeEqualRegex = $@"{EqualRegex}\s*(the\s+)?(?<number1>({NumberSplitMark}.)+)";
       public static readonly string TwoNumberRangeRegex1 = $@"mellan\s*(den\s+)?(?<number1>({NumberSplitMark}.)+)\s+och\s+(den\s+)?(?<number2>({NumberSplitMark}.)+)";
-      public static readonly string TwoNumberRangeRegex2 = $@"({OneNumberRangeMoreRegex1}|{OneNumberRangeMoreRegex2})\s*(och|men|,)\s*({OneNumberRangeLessRegex1}|{OneNumberRangeLessRegex2})";
-      public static readonly string TwoNumberRangeRegex3 = $@"({OneNumberRangeLessRegex1}|{OneNumberRangeLessRegex2})\s*(och|men|,)\s*({OneNumberRangeMoreRegex1}|{OneNumberRangeMoreRegex2})";
-      public static readonly string TwoNumberRangeRegex4 = $@"(from\s+)?(?<number1>({NumberSplitMark}(?!\bfrån\b).)+)\s*{TillRegex}\s*(the\s+)?(?<number2>({NumberSplitMark}.)+)";
+      public static readonly string TwoNumberRangeRegex2 = $@"({OneNumberRangeMoreRegex1}|{OneNumberRangeMoreRegex2})\s*(och (den)?|men|,)\s*({OneNumberRangeLessRegex1}|{OneNumberRangeLessRegex2})";
+      public static readonly string TwoNumberRangeRegex3 = $@"({OneNumberRangeLessRegex1}|{OneNumberRangeLessRegex2})\s*(och (den)?|men|,)\s*({OneNumberRangeMoreRegex1}|{OneNumberRangeMoreRegex2})";
+      public static readonly string TwoNumberRangeRegex4 = $@"(från\s+)?(?<number1>({NumberSplitMark}(?!\bfrån\b).)+)\s*{TillRegex}\s*(the\s+)?(?<number2>({NumberSplitMark}.)+)";
       public const string AmbiguousFractionConnectorsRegex = @"^[.]";
       public const char DecimalSeparatorChar = ',';
       public const string FractionMarkerToken = @"av";
