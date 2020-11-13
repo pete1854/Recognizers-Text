@@ -60,19 +60,21 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
         public static OrdinalExtractor GetInstance(BaseNumberOptionsConfiguration config)
         {
-            var cacheKey = config.Options.ToString();
-            if (!Instances.ContainsKey(cacheKey))
+            var extractorKey = config.Options.ToString();
+
+            if (!Instances.ContainsKey(extractorKey))
             {
                 var instance = new OrdinalExtractor(config);
-                Instances.TryAdd(cacheKey, instance);
+                Instances.TryAdd(extractorKey, instance);
             }
 
-            return Instances[cacheKey];
+            return Instances[extractorKey];
         }
 
         protected override object GenKey(string input)
         {
             return (keyPrefix, input);
         }
+
     }
 }

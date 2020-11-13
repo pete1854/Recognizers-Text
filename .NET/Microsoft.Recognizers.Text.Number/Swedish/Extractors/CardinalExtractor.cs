@@ -14,6 +14,7 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
         private CardinalExtractor(BaseNumberOptionsConfiguration config)
             : base(config.Options)
         {
+
             keyPrefix = string.Intern(ExtractType + "_" + config.Options + "_" + config.Placeholder + "_" + config.Culture);
 
             var builder = ImmutableDictionary.CreateBuilder<Regex, TypeTag>();
@@ -31,12 +32,13 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
         internal sealed override ImmutableDictionary<Regex, TypeTag> Regexes { get; }
 
-        // "Cardinal";
-        protected sealed override string ExtractType { get; } = Constants.SYS_NUM_CARDINAL;
+        protected sealed override string ExtractType { get; } = Constants.SYS_NUM_CARDINAL; // "Cardinal";
 
         public static CardinalExtractor GetInstance(string placeholder = NumbersDefinitions.PlaceHolderDefault)
         {
-            if (!Instances.ContainsKey(placeholder))
+            var extractorKey = config.Placeholder;
+
+            if (!Instances.ContainsKey(extractorKey))
             {
                 var instance = new CardinalExtractor(config);
                 Instances.TryAdd(extractorKey, instance);

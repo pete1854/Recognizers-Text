@@ -9,11 +9,9 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 {
     public class IntegerExtractor : CachedNumberExtractor
     {
-
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
 
-        private static readonly ConcurrentDictionary<string, IntegerExtractor> Instances =
-            new ConcurrentDictionary<string, IntegerExtractor>();
+        private static readonly ConcurrentDictionary<string, IntegerExtractor> Instances = new ConcurrentDictionary<string, IntegerExtractor>();
 
         private readonly string keyPrefix;
 
@@ -50,7 +48,7 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
                     RegexTagGenerator.GenerateRegexTag(Constants.INTEGER_PREFIX, Constants.SWEDISH)
                 },
                 /*{
-                    GenerateLongFormatNumberRegexes(LongFormatType.IntegerNumComma, placeholder, RegexFlags),
+                    GenerateLongFormatNumberRegexes(LongFormatType.IntegerNumComma, config.Placeholder, RegexFlags),
                     RegexTagGenerator.GenerateRegexTag(Constants.INTEGER_PREFIX, Constants.NUMBER_SUFFIX)
                 },*/
                 {
@@ -68,12 +66,14 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
 
         internal sealed override ImmutableDictionary<Regex, TypeTag> Regexes { get; }
 
-        // "Integer";
-        protected sealed override string ExtractType { get; } = Constants.SYS_NUM_INTEGER;
+        protected sealed override string ExtractType { get; } = Constants.SYS_NUM_INTEGER; // "Integer";
 
         public static IntegerExtractor GetInstance(string placeholder = NumbersDefinitions.PlaceHolderDefault)
         {
-            if (!Instances.ContainsKey(placeholder))
+
+            var extractorKey = config.Placeholder;
+
+            if (!Instances.ContainsKey(extractorKey))
             {
                 var instance = new IntegerExtractor(config);
                 Instances.TryAdd(extractorKey, instance);
@@ -86,5 +86,6 @@ namespace Microsoft.Recognizers.Text.Number.Swedish
         {
             return (keyPrefix, input);
         }
+
     }
 }
