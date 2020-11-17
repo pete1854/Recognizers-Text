@@ -37,7 +37,7 @@
   {
     "Input": "Han rankas mellan den 10:e och den 15:e.",
     "NotSupportedByDesign": "java, javascript, python",
-    "Debug": true,
+    "Debug": false,
     "Results": [
       {
         "Text": "mellan den 10:e och den 15:e",
@@ -47,6 +47,22 @@
         },
         "Start": 11,
         "End": 38
+      }
+    ]
+  },
+  {
+    "Input": "Han rankas mellan den tionde och den femtonde.",
+    "NotSupportedByDesign": "java, javascript, python",
+    "Debug": true,
+    "Results": [
+      {
+        "Text": "mellan den tionde och den femtonde",
+        "TypeName": "numberrange",
+        "Resolution": {
+          "value": "[10,15)"
+        },
+        "Start": 11,
+        "End": 44
       }
     ]
   },
